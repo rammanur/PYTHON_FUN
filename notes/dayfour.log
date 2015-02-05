@@ -1,0 +1,8305 @@
+﻿Python 2.7.5 (v2.7.5:ab05e7dd2788, May 13 2013, 13:18:45) 
+[GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+Type "copyright", "credits" or "license()" for more information.
+>>> 
+
+>>> import re
+>>> s = '''
+Our team history:
+* On 3/14/2013, we scored 14 points and lost the game.
+* On 4/2/2013, we scored 15 points and lost the game.
+* On 4/18/2013, we scored only 1 point and won the game.
+Go figure!
+'''
+>>> re.findall(r'team', s)
+['team']
+>>> re.findall(r'we', s)
+['we', 'we', 'we']
+>>> re.findall(r'me', s)
+['me', 'me', 'me']
+>>> re.findall(r'\bme\b', s)
+[]
+>>> re.findall(r'\bwe\b', s)
+['we', 'we', 'we']
+>>> re.findall(r'te.m', s)
+['team']
+>>> re.findall(r'te..m', s)
+[]
+>>> re.findall(r'te..', s)
+['team']
+>>> re.findall(r'[aeiou]', s)
+['u', 'e', 'a', 'i', 'o', 'e', 'o', 'e', 'o', 'i', 'a', 'o', 'e', 'a', 'e', 'e', 'o', 'e', 'o', 'i', 'a', 'o', 'e', 'a', 'e', 'e', 'o', 'e', 'o', 'o', 'i', 'a', 'o', 'e', 'a', 'e', 'o', 'i', 'u', 'e']
+>>> re.findall(r'[aeiouAEIOU]', s)
+['O', 'u', 'e', 'a', 'i', 'o', 'O', 'e', 'o', 'e', 'o', 'i', 'a', 'o', 'e', 'a', 'e', 'O', 'e', 'o', 'e', 'o', 'i', 'a', 'o', 'e', 'a', 'e', 'O', 'e', 'o', 'e', 'o', 'o', 'i', 'a', 'o', 'e', 'a', 'e', 'o', 'i', 'u', 'e']
+>>> re.findall(r'[aeiou]', s, re.IGNORECASE)
+['O', 'u', 'e', 'a', 'i', 'o', 'O', 'e', 'o', 'e', 'o', 'i', 'a', 'o', 'e', 'a', 'e', 'O', 'e', 'o', 'e', 'o', 'i', 'a', 'o', 'e', 'a', 'e', 'O', 'e', 'o', 'e', 'o', 'o', 'i', 'a', 'o', 'e', 'a', 'e', 'o', 'i', 'u', 'e']
+>>> re.findall(r'[aeiouAEIOU]+', s)
+['Ou', 'ea', 'i', 'o', 'O', 'e', 'o', 'e', 'oi', 'a', 'o', 'e', 'a', 'e', 'O', 'e', 'o', 'e', 'oi', 'a', 'o', 'e', 'a', 'e', 'O', 'e', 'o', 'e', 'o', 'oi', 'a', 'o', 'e', 'a', 'e', 'o', 'i', 'u', 'e']
+>>> re.findall(r'[^aeiouAEIOU]+', s)
+['\n', 'r t', 'm h', 'st', 'ry:\n* ', 'n 3/14/2013, w', ' sc', 'r', 'd 14 p', 'nts ', 'nd l', 'st th', ' g', 'm', '.\n* ', 'n 4/2/2013, w', ' sc', 'r', 'd 15 p', 'nts ', 'nd l', 'st th', ' g', 'm', '.\n* ', 'n 4/18/2013, w', ' sc', 'r', 'd ', 'nly 1 p', 'nt ', 'nd w', 'n th', ' g', 'm', '.\nG', ' f', 'g', 'r', '!\n']
+>>> # if u cn rd ths u cn gt a gd jb
+>>> 
+>>> 
+>>> 
+>>> re.findall(r'[0-9]', s)
+['3', '1', '4', '2', '0', '1', '3', '1', '4', '4', '2', '2', '0', '1', '3', '1', '5', '4', '1', '8', '2', '0', '1', '3', '1']
+>>> re.findall(r'[0123456789]', s)
+['3', '1', '4', '2', '0', '1', '3', '1', '4', '4', '2', '2', '0', '1', '3', '1', '5', '4', '1', '8', '2', '0', '1', '3', '1']
+>>> re.findall(r'[0-9]+', s)
+['3', '14', '2013', '14', '4', '2', '2013', '15', '4', '18', '2013', '1']
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> re.findall(r'won|lost', s)
+['lost', 'lost', 'won']
+>>> print s
+
+Our team history:
+* On 3/14/2013, we scored 14 points and lost the game.
+* On 4/2/2013, we scored 15 points and lost the game.
+* On 4/18/2013, we scored only 1 point and won the game.
+Go figure!
+
+>>> s = '''
+Our team history:
+* On 3/14/2013, we scored 14 points and lost the game.
+* On 4/2/2013, we scored 15 points and lost the game.
+* On 4/18/2013, we scored only 1 point and won the game.
+Go figure!
+'''
+>>> re.findall(r'[0-9]+', s)
+['3', '14', '2013', '14', '4', '2', '2013', '15', '4', '18', '2013', '1']
+>>> re.findall(r'\d+', s)
+['3', '14', '2013', '14', '4', '2', '2013', '15', '4', '18', '2013', '1']
+>>> 
+>>> re.findall(r'\s', s)
+['\n', ' ', ' ', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '\n', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '\n', ' ', '\n']
+>>> re.findall(r'\S', s)
+['O', 'u', 'r', 't', 'e', 'a', 'm', 'h', 'i', 's', 't', 'o', 'r', 'y', ':', '*', 'O', 'n', '3', '/', '1', '4', '/', '2', '0', '1', '3', ',', 'w', 'e', 's', 'c', 'o', 'r', 'e', 'd', '1', '4', 'p', 'o', 'i', 'n', 't', 's', 'a', 'n', 'd', 'l', 'o', 's', 't', 't', 'h', 'e', 'g', 'a', 'm', 'e', '.', '*', 'O', 'n', '4', '/', '2', '/', '2', '0', '1', '3', ',', 'w', 'e', 's', 'c', 'o', 'r', 'e', 'd', '1', '5', 'p', 'o', 'i', 'n', 't', 's', 'a', 'n', 'd', 'l', 'o', 's', 't', 't', 'h', 'e', 'g', 'a', 'm', 'e', '.', '*', 'O', 'n', '4', '/', '1', '8', '/', '2', '0', '1', '3', ',', 'w', 'e', 's', 'c', 'o', 'r', 'e', 'd', 'o', 'n', 'l', 'y', '1', 'p', 'o', 'i', 'n', 't', 'a', 'n', 'd', 'w', 'o', 'n', 't', 'h', 'e', 'g', 'a', 'm', 'e', '.', 'G', 'o', 'f', 'i', 'g', 'u', 'r', 'e', '!']
+>>> re.findall(r'\S+', s)
+['Our', 'team', 'history:', '*', 'On', '3/14/2013,', 'we', 'scored', '14', 'points', 'and', 'lost', 'the', 'game.', '*', 'On', '4/2/2013,', 'we', 'scored', '15', 'points', 'and', 'lost', 'the', 'game.', '*', 'On', '4/18/2013,', 'we', 'scored', 'only', '1', 'point', 'and', 'won', 'the', 'game.', 'Go', 'figure!']
+>>> s.split()
+['Our', 'team', 'history:', '*', 'On', '3/14/2013,', 'we', 'scored', '14', 'points', 'and', 'lost', 'the', 'game.', '*', 'On', '4/2/2013,', 'we', 'scored', '15', 'points', 'and', 'lost', 'the', 'game.', '*', 'On', '4/18/2013,', 'we', 'scored', 'only', '1', 'point', 'and', 'won', 'the', 'game.', 'Go', 'figure!']
+>>> re.findall(r"[A-Za-z'\-]+", s)
+['Our', 'team', 'history', 'On', 'we', 'scored', 'points', 'and', 'lost', 'the', 'game', 'On', 'we', 'scored', 'points', 'and', 'lost', 'the', 'game', 'On', 'we', 'scored', 'only', 'point', 'and', 'won', 'the', 'game', 'Go', 'figure']
+>>> re.findall(r"\w+", s)
+['Our', 'team', 'history', 'On', '3', '14', '2013', 'we', 'scored', '14', 'points', 'and', 'lost', 'the', 'game', 'On', '4', '2', '2013', 'we', 'scored', '15', 'points', 'and', 'lost', 'the', 'game', 'On', '4', '18', '2013', 'we', 'scored', 'only', '1', 'point', 'and', 'won', 'the', 'game', 'Go', 'figure']
+>>> "hello"
+'hello'
+>>> 'hello'
+'hello'
+>>> 
+>>> 
+>>> 
+>>> print s
+
+Our team history:
+* On 3/14/2013, we scored 14 points and lost the game.
+* On 4/2/2013, we scored 15 points and lost the game.
+* On 4/18/2013, we scored only 1 point and won the game.
+Go figure!
+
+>>> re.findall(r"\d+", s)
+['3', '14', '2013', '14', '4', '2', '2013', '15', '4', '18', '2013', '1']
+>>> re.findall(r"\d+ points", s)
+['14 points', '15 points']
+>>> re.findall(r"\d+ point", s)
+['14 point', '15 point', '1 point']
+>>> re.findall(r"(\d+) point", s)
+['14', '15', '1']
+>>> re.findall(r"(\d+) p(oi)nt", s)
+[('14', 'oi'), ('15', 'oi'), ('1', 'oi')]
+>>> re.findall(r"\d+", s)
+['3', '14', '2013', '14', '4', '2', '2013', '15', '4', '18', '2013', '1']
+>>> re.findall(r"\d+/\d+/\d+", s)
+['3/14/2013', '4/2/2013', '4/18/2013']
+>>> re.findall(r"[0-9]+/[0-9]+/[0-9]+", s)
+['3/14/2013', '4/2/2013', '4/18/2013']
+>>> 
+>>> re.findall(r"(\d+)/(\d+)/(\d+)", s)
+[('3', '14', '2013'), ('4', '2', '2013'), ('4', '18', '2013')]
+>>> 
+>>> re.search(r"(\d+)/(\d+)/(\d+)", s)
+<_sre.SRE_Match object at 0x101759620>
+>>> 
+>>> mo = re.search(r"(\d+)/(\d+)/(\d+)", s)
+>>> type(mo)
+<type '_sre.SRE_Match'>
+>>> dir(mo)
+['__class__', '__copy__', '__deepcopy__', '__delattr__', '__doc__', '__format__', '__getattribute__', '__hash__', '__init__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'end', 'endpos', 'expand', 'group', 'groupdict', 'groups', 'lastgroup', 'lastindex', 'pos', 're', 'regs', 'span', 'start', 'string']
+>>> mo.start()
+24
+>>> mo.end()
+33
+>>> mo.span()
+(24, 33)
+>>> 
+>>> 
+>>> 
+>>> 
+>>> s = '''
+Our team history:
+* On 3/14/2013, we scored 14 points and lost the game.
+* On 4/2/2013, we scored 15 points and lost the game.
+* On 4/18/2013, we scored only 1 point and won the game.
+Go figure!
+'''
+>>> import re
+>>> mo = re.search(r"(\d+)/(\d+)/(\d+)", s)
+>>> 
+>>> s[24:33]
+'3/14/2013'
+>>> 
+>>> s.group(0)
+
+Traceback (most recent call last):
+  File "<pyshell#81>", line 1, in <module>
+    s.group(0)
+AttributeError: 'str' object has no attribute 'group'
+>>> mo.group(0)
+'3/14/2013'
+>>> 
+>>> 
+>>> 
+
+>>> 
+
+
+>>> 
+
+
+>>> 
+
+
+>>> 
+
+
+>>> 
+
+
+>>> 
+
+
+>>> 
+
+
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+>>> s = '''
+Our team history:
+* On 3/14/2013, we scored 14 points and lost the game.
+* On 4/2/2013, we scored 15 points and lost the game.
+* On 4/18/2013, we scored only 1 point and won the game.
+Go figure!
+'''
+>>> mo = re.search(r"(\d+)/(\d+)/(\d+)", s)
+>>> mo.group(0)
+'3/14/2013'
+>>> mo.group(1)
+'3'
+>>> mo.group(2)
+'14'
+>>> mo.group(3)
+'2013'
+>>> mo.groups()
+('3', '14', '2013')
+>>> month, day, year = mo.groups()
+>>> 
+>>> month
+'3'
+>>> day
+'14'
+>>> year
+'2013'
+>>> 
+>>> 
+>>> mo = re.search(r"(\d+)/(\d+)/(\d+)", s)
+>>> month, day, year = mo.groups()
+>>> 
+>>> 
+>>> re.findall(r"(\d+)/(\d+)/(\d+)", s)
+[('3', '14', '2013'), ('4', '2', '2013'), ('4', '18', '2013')]
+>>> re.findall(r"(\d+)/(\d+)/(\d+)", s)
+[('3', '14', '2013'), ('4', '2', '2013'), ('4', '18', '2013')]
+>>> 
+>>> 
+>>> 
+>>> re.findall(r"(\d+)/(\d+)/(\d+)", 'Mrs. Lang is tough.  On 6/17/2013, she made us do chained division problems like 132413241234/12341234/134.')
+[('6', '17', '2013'), ('132413241234', '12341234', '134')]
+>>> re.findall(r"(\d{1,2})/(\d{1,2})/(\d{4})", 'Mrs. Lang is tough.  On 6/17/2013, she made us do chained division problems like 132413241234/12341234/134.')
+[('6', '17', '2013')]
+>>> re.findall(r"(\d{1,2})/(\d{1,2})/(\d{4})", 'Mrs. Lang is tough.  On 6/17/2013, she made us do chained division problems like 95/45/1924.')
+[('6', '17', '2013'), ('95', '45', '1924')]
+>>> re.findall(r"(\d+)/([123]?[0-9])/(\d{4})", 'Mrs. Lang is tough.  On 6/17/2013, she made us do chained division problems like 95/45/1924.')
+[('6', '17', '2013')]
+>>> 
+>>> 
+>>> re.findall(r"(\d+)/(1|2|3|4|10|11|12|13|31)/(\d{4})", 'Mrs. Lang is tough.  On 6/17/2013, she made us do chained division problems like 95/45/1924.')
+[]
+>>> 
+>>> re.findall(r"(\d+)/([0123]?[1-9])/(\d{4})", 'Mrs. Lang is tough.  On 6/17/2013, she made us do chained division problems like 95/45/1924.')
+[('6', '17', '2013')]
+
+>>> # 07/04/1776
+>>> 
+>>> 
+>>> 
+>>> 
+>>> # Crutch' -- Dojo
+>>> 
+>>> 
+>>> s
+'\nOur team history:\n* On 3/14/2013, we scored 14 points and lost the game.\n* On 4/2/2013, we scored 15 points and lost the game.\n* On 4/18/2013, we scored only 1 point and won the game.\nGo figure!\n'
+>>> s.count('we')
+3
+>>> ================================ RESTART ================================
+>>> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rel="stylesheet" type="text/css" href="//i.factmonster.com/css/fm.css" /><script
+type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script><script
+type="text/javascript" src="//i.factmonster.com/js/cookies.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="apple-touch-icon" href="http://i.infopls.com/kids/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="http://i.infopls.com/kids/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="http://i.infopls.com/kids/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="http://i.infopls.com/kids/apple-touch-icon-144x144.png" />
+
+
+<meta name="chunk" content="ART" />
+<meta name="aka" content="Elevations" />
+<meta name="etitle" content="Highest Mountain Peaks of the World " />
+<meta name="idx" content="Aconcagua Peak" />
+<meta name="idx" content="Altitudes" />
+<meta name="idx" content="Andes" />
+<meta name="idx" content="Elevations" />
+<meta name="idx" content="Everest, Mount" />
+<meta name="idx" content="Geography" />
+<meta name="idx" content="Himalayas" />
+<meta name="idx" content="K2 (Mount Godwin Austen)" />
+<meta name="idx" content="McKinley, Mount (Denali)" />
+<meta name="idx" content="Mountains" />
+<meta name="idx" content="Pamir Mountain Range" />
+<meta name="idx" content="World" />
+<meta name="isub" content="highest mountain peaks" />
+<meta name="isub" content="in U.S." />
+<meta name="isub" content="mountain peaks" />
+<meta name="isub" content="of mountain peaks" />
+<meta name="isub" content="world" />
+<meta name="seealso" content="names of mountains" />
+<meta name="title" content="Highest Mountain Peaks of the World (continued from p. 468)" />
+<meta name="waif" content="elevations of mountain peaks" />
+<meta name="waif" content="Highest Mountains" />
+<meta name="waif" content="mountain peak elevations" />
+<meta name="waif" content="the world's highest mountains" />
+<meta name="waif" content="the world's tallest mountains" />
+<meta name="waif" content="what is the height of" />
+<meta name="waif" content="world mountain peak elevations" />
+<meta name="wd" content="highest mountain|Himalayas|andes" />
+<meta name="keywords" content="Elevations Highest Mountain Peaks of the World Aconcagua Peak Altitudes Andes Everest Mount Geography Himalayas K2 Godwin Austen McKinley Denali Mountains Pamir Range in U.S names continued from p 468 world's tallest what is height mountain|Himalayas|andes" />
+<title
+>Highest Mountain Peaks of the World  | FactMonster.com</title
+><meta name="uniqid" content="A0001771" />
+<meta name="parent" content="A0873835" />
+<meta name="replaces" content="A0775289" />
+<meta name="subchannel" content="world" />
+<meta name="Channel" content="world" />
+
+
+<link rel="shortcut icon" href="http://img.factmonster.com/images/icons/fm_favicon.ico" type="image/ico"/>
+<link rel="meta" href="http://www.factmonster.com/labels.rdf" type="application/rdf+xml" title="ICRA labels" />
+<meta http-equiv="pics-Label" content='(pics-1.1 "http://www.icra.org/pics/vocabularyv03/" l gen true for "http://factmonster.com" r (n 0 s 0 v 0 l 0 oa 0 ob 0 oc 0 od 0 oe 0 of 0 og 0 oh 0 c 0) gen true for "http://www.factmonster.com" r (n 0 s 0 v 0 l 0 oa 0 ob 0 oc 0 od 0 oe 0 of 0 og 0 oh 0 c 0))' />
+<link type="text/css" rel="stylesheet" href="//i.factmonster.com/css/print.css" media="print"/>
+<style type="text/css">
+div.bannerleft {position:absolute;left:0;top:42px;vertical-align:top;text-align:left;z-index:2;}
+img.bannerright {width:510px;height:60px}
+
+/*#Wn {margin-top:96px;}*/
+#Wn .winbg {width:100%;height:60px;}
+#Wn.oversizead {margin-top:256px;}
+/*div.topbanner {position:absolute;top:0px;z-index:2;width:100%;height:94px;border-bottom:2px solid #333;margin:0 !important;padding:0 !important;text-align:center}*/
+div.oversize {height:254px}
+/*#lb, #bigleader {width:728px;margin:0 auto;padding-left:14px;background:url("http://i.factmonster.com/images/admarker_90.gif") 0 2px no-repeat #ccc;}*/
+.oversize div #bigleader,.oversize div #lb {width:850}
+#top_strip{background-color:black; color: white; font-weight:bold}
+#top_strip a, #top_strip a:visited, #top_strip a:hover{color:white;font-weight:bold}
+iframe{padding:0;margin:0;border:none;overflow:hidden}
+.winbg {background-color:#cc0}
+.bodybg {background-color:#fff}
+img.search, td.search, div.search {background-color:#f60}
+#GENDERAGE {margin:-13px -10px 10px;background-color:#06c; text-align:center; height:55px}
+ .fmNav li#$IP_CHANNEL a {color:#f60;background-image:url("/images/fmIcon_worldON.gif")}
+</style>
+
+<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="//i.factmonster.com/js/jquery.cookie.min.js"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-350786-2']);
+  _gaq.push(['_setDomainName', '.factmonster.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+//]]>
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#lb div #widgetbox_widget_parent_0').parent().parent().parent().parent().addClass('oversize').prev().addClass('oversizead');
+	$('#lb #widgetbox_widget_parent_0').parent().parent().parent().addClass('oversize').prev().addClass('oversizead');
+});
+</script>
+
+<!-- Begin comScore Tag  -->
+<script type="text/javascript" src='http://b.scorecardresearch.com/beacon.js'></script>
+<script type="text/javascript">
+  COMSCORE.beacon({
+    c1:2,
+    c2:6035556,
+    c3:"",
+    c4:"",
+    c5:"",
+    c6:"",
+    c15:""
+  });
+</script>
+<noscript>
+  <img alt="" src="http://b.scorecardresearch.com/p?c1=2&amp;c2=6035556&amp;c3=&amp;c4=&amp;c5=&amp;c6=&amp;c15=&amp;cj=1" />
+</noscript>
+<!-- End comScore Tag -->
+</head>
+<body>
+<div class="topbanner"><div id="lb"><div class="interior"><script type="text/javascript">
+  var ord = window.ord || Math.floor(Math.random() * 1e16);
+  document.write('<script type="text/javascript" src="http://ad.doubleclick.net/N4403/adj/factmonster.com1/ros;sect=ros;sz=728x90,970x90;dcopt=ist;type=pop;type=int;;ord=' + ord + '?"><\/script>');
+</script><noscript><a
+href="http://ad.doubleclick.net/N4403/jump/factmonster.com1/ros;sect=ros;sz=728x90;ord=495051065?"
+target="_blank"><img
+src="http://ad.doubleclick.net/N4403/ad/factmonster.com1/ros;sect=ros;sz=728x90;ord=495051065?"
+width="728" height="90" border="0"
+alt="Click Here!" />Click Here!</a></noscript></div></div></div><div id="Wn" class="winbg" style="margin-bottom:0;position:relative;top:0;">
+<div id="banner">
+<img style="z-index:2;position:absolute;top:0px;left:0px" src="//i.factmonster.com/images/tmpl/fm/world_title_left_bg.gif" alt="" />
+<img style="z-index:2;position:absolute;top:0px;left:113px" class="bannerright" src="//i.factmonster.com/images/tmpl/fm/world_banner1a.gif" alt="" /><img
+style="z-index:2;position:absolute;top:60px;left:305px" src="//i.factmonster.com/images/tmpl/fm/world_monster_footer1.gif" alt="" />
+<img src="//i.factmonster.com/images/clearpix.gif" style="z-index:2;position:absolute;top:0px;left:623px;width:10px;height:60px;background:#cc0" alt=""/>
+
+<div style="z-index:2;position:absolute;top:0px;left:0px">
+<img style="z-index:3;position:absolute;top:34px;left:14px" src="//i.factmonster.com/images/FMfromIPcredit.gif" alt="From Information Please" />
+<a href="/index.html" title="Back to Fact Monster Home Page"><img src="//i.factmonster.com/images/clearpix.gif" height="42" width="130" alt="Back to Fact Monster Home Page" /></a>
+</div>
+</div>
+
+<div class="winbg"><!-- --></div>
+
+<div class="bannerleft" align="left" style="width:126px">
+
+<ul class="fmNav" style="width:113px;font-size:11px;margin:0;padding:0;list-style:none">
+<li id="home"><a href="/index.html"><span>Home</span></a></li>
+<li id="world"><a href="/world.html"><span>World &amp; News</span></a></li>
+</ul>
+
+<div style="z-index:0;padding-right:13px;width:113px;background:#f60;border-bottom:2px solid #306"><!-- -->
+<ul class="fmNav" style="width:113px;font-size:11px;margin:0;padding:0;list-style:none">
+<li id="us"><a href="/us.html"><span>U.S.</span></a></li>
+<li id="people"><a href="/people.html"><span>People</span></a></li>
+<li id="funfacts"><a href="/funfacts.html"><span>Word Wise</span></a></li>
+<li id="science"><a href="/science.html"><span>Science</span></a></li>
+<li id="math"><a href="/mathmoney.html"><span>Math &amp; Money</span></a></li>
+<li id="sports"><a href="/sports.html"><span>Sports</span></a></li>
+<li id="life"><a href="/life.html"><span>Cool Stuff</span></a></li>
+<li id="games"><a href="/games.html"><span>Games &amp; Quizzes</span></a></li>
+<li id="homework"><a href="/homework/index.html"><span>Homework Center</span></a></li>
+<li class="fmInc Favs">Fact Monster Favorites
+		<ul style="margin:0;padding:0"><li><a href="/spot/01school1.html"><b>Back to School Center</b></a></li><li><a href="/states.html">The Fifty States</a></li><li><a href="/ipka/A0777008.html">U.S. Geography</a></li><li><a href="/year/calendar-2013.html">2013 Calendar</a></li><li><a href="/pages/unitconversion.html">Conversion Calculator</a></li><li><a href="/ipa/A0762524.html">Most Populous Cities of the World</a></li><li><a href="/countries.html">Country Profiles</a></li><li><a href="/math/flashcards.html">Math Flashcards</a></li><li><a href="/ipa/A0001338.html">The Tallest Buildings in the World</a></li><li><a href="/ipka/A0197622.html">Greek and Roman Mythology</a></li></ul></li><li class="fmInc RefDesk">Reference Desk
+		<ul style="margin:0;padding:0"><li><a href="/atlas/index.html">Atlas</a></li><li><a href="/almanacs.html">Almanacs</a></li><li><a href="http://dictionary.factmonster.com/">Dictionary</a></li><li><a href="/encyclopedia.html">Encyclopedia</a></li></ul></li><li id="funbrain"><a href="http://www.funbrain.com/"><span>FunBrain</span></a></li></ul>
+</div>
+
+</div>
+
+<div class="search" style="z-index:2;position:absolute;top:60px;left:113px;width:13px;height:45px;"><!-- --></div>
+<div class="search" style="z-index:3;position:absolute;top:60px;left:113px;width:13px;height:32px;border-bottom:1px solid #306"><!-- --></div>
+<form id="search" action="/search" style="z-index:3;position:absolute;top:60px;left:126px;border-bottom:1px solid #306">
+ <table class="bodybg" border="0" cellspacing="0" cellpadding="0">
+  <tr style="height:32px">
+   <td width="43" nowrap="nowrap" valign="top" class="search"><img src="//i.factmonster.com/images/tmpl/fm/search_box_a.png" width="41" height="30" border="0" alt="Search" /></td>
+ 	 <td width="105" nowrap="nowrap" align="center" class="search"><input type="hidden" name="fr" value="fmtn" /><input name="query" size="10" maxlength="35" style="margin-top:4px" /></td>
+   <td width="32" nowrap="nowrap" valign="top"><input type="image" src="//i.factmonster.com/images/tmpl/fm/search_go_button.png" style="height:32px;width:32px" alt="Go" /></td>
+  </tr>
+ </table>
+</form>
+
+<table id="Pg" style="" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td id="sidebar-left" width="126"><img src="//i.factmonster.com/images/clearpix.gif" width="126" height="1" alt="" /></td>
+<td class="bodybg" style="padding:10px;padding-top:50px" valign="top">
+
+<!-- google_ad_section_start --><div
+class="context noindex"
+><a
+href="/world.html"
+>World</a
+> > <a
+href="A0001742.html"
+>Geography</a
+> > <a
+href="A0873835.html"
+>World Geography</a
+></div
+><h1
+id="A0001771"
+class="level1"
+>Highest Mountain Peaks of the World </h1
+><!--BodyText-->
+<p>The following table lists the highest mountain peaks of the world including mountain name, mountain range, vertical height, and location, according to the National Geographic Society. </p>
+<p
+> <i
+>See </i
+><a
+href="/cgi-bin/id/A0001798"
+>Named Summits in the U.S. Over 14,000 Feet Above Sea Level</a
+> for U.S. Peaks.</p
+><p
+> <i
+>See also</i
+> <a
+href="/cgi-bin/id/A0777280"
+>Climbing the World's 14 8,000-meter Peaks</a
+>, <a
+href="/cgi-bin/id/A0777282"
+>The Seven Summits</a
+>, <a
+href="/cgi-bin/id/A0193535"
+>Mortals on Mount Olympus: A History of Climbing Everest</a
+>, and the <a
+href="/cgi-bin/id/SPOT-EVEREST1"
+>Everest Almanac</a
+>.</p
+><div
+class="center"
+><table
+id="A0001772"
+border="1"
+class="sgmltable"
+><tr
+><th
+rowspan="2"
+align="left"
+valign="bottom"
+> Mountain peak </th
+><th
+rowspan="2"
+align="left"
+valign="bottom"
+> Range </th
+><th
+rowspan="2"
+align="left"
+valign="bottom"
+> Location </th
+><th
+colspan="2"
+align="center"
+valign="bottom"
+>Height</th
+></tr
+><tr
+><th
+align="center"
+valign="bottom"
+>ft.</th
+><th
+align="center"
+valign="bottom"
+>m</th
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/SPOT-EVEREST1"
+>Everest</a
+><sup
+class="fnr"
+>1</sup
+> </td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0823736"
+>Himalayas</a
+> </td
+><td
+align="left"
+valign="top"
+>Nepal/Tibet </td
+><td
+align="right"
+valign="top"
+>29,035</td
+><td
+align="right"
+valign="top"
+>8,850</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0826831"
+>K2 (Godwin Austen)</a
+> </td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0827075"
+>Karakoram</a
+> </td
+><td
+align="left"
+valign="top"
+>Pakistan/China </td
+><td
+align="right"
+valign="top"
+>28,250</td
+><td
+align="right"
+valign="top"
+>8,611</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0826979"
+>Kanchenjunga</a
+> </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>India/Nepal</td
+><td
+align="right"
+valign="top"
+>28,169</td
+><td
+align="right"
+valign="top"
+>8,586</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Lhotse I</td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal/Tibet </td
+><td
+align="right"
+valign="top"
+>27,940</td
+><td
+align="right"
+valign="top"
+>8,516</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Makalu I</td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal/Tibet</td
+><td
+align="right"
+valign="top"
+>27,766</td
+><td
+align="right"
+valign="top"
+>8,463</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Cho Oyu</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal/Tibet</td
+><td
+align="right"
+valign="top"
+>26,906</td
+><td
+align="right"
+valign="top"
+>8,201</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Dhaulagiri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>26,795</td
+><td
+align="right"
+valign="top"
+>8,167</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Manaslu I</td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>26,781</td
+><td
+align="right"
+valign="top"
+>8,163</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0834801"
+>Nanga Parbat</a
+> </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>26,660</td
+><td
+align="right"
+valign="top"
+>8,125</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0804112"
+>Annapurna</a
+>  </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>26,545</td
+><td
+align="right"
+valign="top"
+>8,091</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Gasherbrum I</td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Pakistan/China</td
+><td
+align="right"
+valign="top"
+>26,470</td
+><td
+align="right"
+valign="top"
+>8,068</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Broad Peak </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Pakistan/China</td
+><td
+align="right"
+valign="top"
+>26,400</td
+><td
+align="right"
+valign="top"
+>8,047</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Gasherbrum II</td
+><td
+align="left"
+valign="top"
+>Karakoram</td
+><td
+align="left"
+valign="top"
+>Pakistan/China</td
+><td
+align="right"
+valign="top"
+>26,360</td
+><td
+align="right"
+valign="top"
+>8,035</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Shishma Pangma (Gosainthan) </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>26,289</td
+><td
+align="right"
+valign="top"
+>8,013</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Annapurna II </td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>26,041</td
+><td
+align="right"
+valign="top"
+>7,937</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Gyachung Kang </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>25,910</td
+><td
+align="right"
+valign="top"
+>7,897</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Disteghil Sar </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>25,858</td
+><td
+align="right"
+valign="top"
+>7,882</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Himalchuli</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>25,801</td
+><td
+align="right"
+valign="top"
+>7,864</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Nuptse </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>25,726</td
+><td
+align="right"
+valign="top"
+>7,841</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0834799"
+>Nanda Devi</a
+> </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>India </td
+><td
+align="right"
+valign="top"
+>25,663</td
+><td
+align="right"
+valign="top"
+>7,824</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Masherbrum </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Kashmir<sup
+class="fnr"
+>2</sup
+></td
+><td
+align="right"
+valign="top"
+>25,660</td
+><td
+align="right"
+valign="top"
+>7,821</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Rakaposhi </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>25,551</td
+><td
+align="right"
+valign="top"
+>7,788</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kanjut Sar </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>25,461</td
+><td
+align="right"
+valign="top"
+>7,761</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kamet </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>India/Tibet </td
+><td
+align="right"
+valign="top"
+>25,446</td
+><td
+align="right"
+valign="top"
+>7,756</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Namcha Barwa </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>25,445</td
+><td
+align="right"
+valign="top"
+>7,756</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Gurla Mandhata </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>25,355</td
+><td
+align="right"
+valign="top"
+>7,728</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Ulugh Muztagh </td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0828366"
+>Kunlun </a
+></td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>25,340</td
+><td
+align="right"
+valign="top"
+>7,723</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kungur</td
+><td
+align="left"
+valign="top"
+>Muztagh Ata</td
+><td
+align="left"
+valign="top"
+>China</td
+><td
+align="right"
+valign="top"
+>25,325</td
+><td
+align="right"
+valign="top"
+>7,719</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Tirich Mir </td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0823755"
+>Hindu Kush</a
+> </td
+><td
+align="left"
+valign="top"
+>Pakistan </td
+><td
+align="right"
+valign="top"
+>25,230</td
+><td
+align="right"
+valign="top"
+>7,690</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Saser Kangri </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>India</td
+><td
+align="right"
+valign="top"
+>25,172</td
+><td
+align="right"
+valign="top"
+>7,672</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Makalu II </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>25,120</td
+><td
+align="right"
+valign="top"
+>7,657</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0821247"
+>Minya Konka (Gongga Shan)</a
+></td
+><td
+align="left"
+valign="top"
+>Daxue Shan</td
+><td
+align="left"
+valign="top"
+>China</td
+><td
+align="right"
+valign="top"
+>24,900</td
+><td
+align="right"
+valign="top"
+>7,590</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kula Kangri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Bhutan </td
+><td
+align="right"
+valign="top"
+>24,783</td
+><td
+align="right"
+valign="top"
+>7,554</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Chang-tzu </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>24,780</td
+><td
+align="right"
+valign="top"
+>7,553</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Muztagh Ata </td
+><td
+align="left"
+valign="top"
+>Muztagh Ata </td
+><td
+align="left"
+valign="top"
+>China </td
+><td
+align="right"
+valign="top"
+>24,757</td
+><td
+align="right"
+valign="top"
+>7,546</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Skyang <br/>Kangri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Kashmir </td
+><td
+align="right"
+valign="top"
+>24,750</td
+><td
+align="right"
+valign="top"
+>7,544</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0923063"
+>Ismail Samani Peak</a
+> (formerly Communism Peak) </td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0837430"
+>Pamirs</a
+></td
+><td
+align="left"
+valign="top"
+>Tajikistan </td
+><td
+align="right"
+valign="top"
+>24,590</td
+><td
+align="right"
+valign="top"
+>7,495</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Jongsong Peak</td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>24,472</td
+><td
+align="right"
+valign="top"
+>7,459</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pobeda Peak</td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0848674"
+>Tien Shan</a
+></td
+><td
+align="left"
+valign="top"
+>Kyrgyzstan</td
+><td
+align="right"
+valign="top"
+>24,406</td
+><td
+align="right"
+valign="top"
+>7,439</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Sia Kangri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Kashmir</td
+><td
+align="right"
+valign="top"
+>24,350</td
+><td
+align="right"
+valign="top"
+>7,422</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Haramosh Peak</td
+><td
+align="left"
+valign="top"
+>Karakoram</td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>24,270</td
+><td
+align="right"
+valign="top"
+>7,397</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Istoro Nal</td
+><td
+align="left"
+valign="top"
+>Hindu Kush</td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>24,240</td
+><td
+align="right"
+valign="top"
+>7,388</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Tent Peak</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>24,165</td
+><td
+align="right"
+valign="top"
+>7,365</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0812033"
+>Chomo Lhari</a
+> </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet/Bhutan </td
+><td
+align="right"
+valign="top"
+>24,040</td
+><td
+align="right"
+valign="top"
+>7,327</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Chamlang </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>24,012</td
+><td
+align="right"
+valign="top"
+>7,319</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kabru</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>24,002</td
+><td
+align="right"
+valign="top"
+>7,316</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Alung Gangri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>24,000</td
+><td
+align="right"
+valign="top"
+>7,315</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Baltoro Kangri</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Kashmir</td
+><td
+align="right"
+valign="top"
+>23,990</td
+><td
+align="right"
+valign="top"
+>7,312</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Muztagh Ata (K-5)</td
+><td
+align="left"
+valign="top"
+>Kunlun </td
+><td
+align="left"
+valign="top"
+>China </td
+><td
+align="right"
+valign="top"
+>23,890</td
+><td
+align="right"
+valign="top"
+>7,282</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Mana</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>India</td
+><td
+align="right"
+valign="top"
+>23,860</td
+><td
+align="right"
+valign="top"
+>7,273</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Baruntse</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>23,688</td
+><td
+align="right"
+valign="top"
+>7,220</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Nepal Peak</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>23,500</td
+><td
+align="right"
+valign="top"
+>7,163</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Amne Machin</td
+><td
+align="left"
+valign="top"
+>Kunlun</td
+><td
+align="left"
+valign="top"
+>China</td
+><td
+align="right"
+valign="top"
+>23,490</td
+><td
+align="right"
+valign="top"
+>7,160</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Gauri Sankar </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal/Tibet </td
+><td
+align="right"
+valign="top"
+>23,440</td
+><td
+align="right"
+valign="top"
+>7,145</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0805716"
+>Badrinath</a
+></td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>India</td
+><td
+align="right"
+valign="top"
+>23,420</td
+><td
+align="right"
+valign="top"
+>7,138</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Nunkun</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Kashmir</td
+><td
+align="right"
+valign="top"
+>23,410</td
+><td
+align="right"
+valign="top"
+>7,135</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0829389"
+>Lenin Peak</a
+> </td
+><td
+align="left"
+valign="top"
+>Pamirs</td
+><td
+align="left"
+valign="top"
+>Tajikistan/Kyrgyzstan </td
+><td
+align="right"
+valign="top"
+>23,405</td
+><td
+align="right"
+valign="top"
+>7,134</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pyramid</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>23,400</td
+><td
+align="right"
+valign="top"
+>7,132</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Api</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>23,399</td
+><td
+align="right"
+valign="top"
+>7,132</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pauhunri</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>India/China</td
+><td
+align="right"
+valign="top"
+>23,385</td
+><td
+align="right"
+valign="top"
+>7,128</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Trisul</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>India</td
+><td
+align="right"
+valign="top"
+>23,360</td
+><td
+align="right"
+valign="top"
+>7,120</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Korzhenevski Peak </td
+><td
+align="left"
+valign="top"
+>Pamirs</td
+><td
+align="left"
+valign="top"
+>Tajikistan </td
+><td
+align="right"
+valign="top"
+>23,310</td
+><td
+align="right"
+valign="top"
+>7,105</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kangto </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>23,260</td
+><td
+align="right"
+valign="top"
+>7,090</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Nyainqentanglha</td
+><td
+align="left"
+valign="top"
+>Nyainqentanglha Shan</td
+><td
+align="left"
+valign="top"
+>China</td
+><td
+align="right"
+valign="top"
+>23,255</td
+><td
+align="right"
+valign="top"
+>7,088</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Trisuli </td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>India</td
+><td
+align="right"
+valign="top"
+>23,210</td
+><td
+align="right"
+valign="top"
+>7,074</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Dunagiri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>India </td
+><td
+align="right"
+valign="top"
+>23,184</td
+><td
+align="right"
+valign="top"
+>7,066</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Revolution Peak </td
+><td
+align="left"
+valign="top"
+>Pamirs</td
+><td
+align="left"
+valign="top"
+>Tajikistan </td
+><td
+align="right"
+valign="top"
+>22,880</td
+><td
+align="right"
+valign="top"
+>6,974</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0802347"
+>Aconcagua</a
+></td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0803941"
+>Andes</a
+></td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>22,834</td
+><td
+align="right"
+valign="top"
+>6,960</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0836481"
+>Ojos del Salado</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>22,664</td
+><td
+align="right"
+valign="top"
+>6,908</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Bonete </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>22,546</td
+><td
+align="right"
+valign="top"
+>6,872</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Ama Dablam    </td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>22,494</td
+><td
+align="right"
+valign="top"
+>6,856</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Tupungato </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>22,310</td
+><td
+align="right"
+valign="top"
+>6,800</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Moscow Peak </td
+><td
+align="left"
+valign="top"
+>Pamirs </td
+><td
+align="left"
+valign="top"
+>Tajikistan </td
+><td
+align="right"
+valign="top"
+>22,260</td
+><td
+align="right"
+valign="top"
+>6,785</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pissis </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>22,241</td
+><td
+align="right"
+valign="top"
+>6,779</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Mercedario </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>22,211</td
+><td
+align="right"
+valign="top"
+>6,770</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0824412"
+>Huascar&aacute;n</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Peru </td
+><td
+align="right"
+valign="top"
+>22,205</td
+><td
+align="right"
+valign="top"
+>6,768</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0830075"
+>Llullaillaco</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>22,057</td
+><td
+align="right"
+valign="top"
+>6,723</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>El Libertador </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>22,047</td
+><td
+align="right"
+valign="top"
+>6,720</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Cachi</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>22,047</td
+><td
+align="right"
+valign="top"
+>6,720</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0826883"
+>Kailas</a
+> </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>22,027</td
+><td
+align="right"
+valign="top"
+>6,714</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Incahuasi</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>21,720</td
+><td
+align="right"
+valign="top"
+>6,620</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Yerupaja</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>21,709</td
+><td
+align="right"
+valign="top"
+>6,617</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kurumda </td
+><td
+align="left"
+valign="top"
+>Pamirs</td
+><td
+align="left"
+valign="top"
+>Tajikistan </td
+><td
+align="right"
+valign="top"
+>21,686</td
+><td
+align="right"
+valign="top"
+>6,610</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Galan</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>21,654</td
+><td
+align="right"
+valign="top"
+>6,600</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>El Muerto </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>21,463</td
+><td
+align="right"
+valign="top"
+>6,542</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Sajama </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Bolivia </td
+><td
+align="right"
+valign="top"
+>21,391</td
+><td
+align="right"
+valign="top"
+>6,520</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Nacimiento </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>21,302</td
+><td
+align="right"
+valign="top"
+>6,493</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0824975"
+>Illampu</a
+></td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Bolivia</td
+><td
+align="right"
+valign="top"
+>21,276</td
+><td
+align="right"
+valign="top"
+>6,485</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0824980"
+>Illimani</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Bolivia </td
+><td
+align="right"
+valign="top"
+>21,201</td
+><td
+align="right"
+valign="top"
+>6,462</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Coropuna</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>21,083</td
+><td
+align="right"
+valign="top"
+>6,426</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Laudo</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,997</td
+><td
+align="right"
+valign="top"
+>6,400</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0824975"
+>Ancohuma</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Bolivia </td
+><td
+align="right"
+valign="top"
+>20,958</td
+><td
+align="right"
+valign="top"
+>6,388</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Cuzco </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Peru </td
+><td
+align="right"
+valign="top"
+>20,945</td
+><td
+align="right"
+valign="top"
+>6,384</td
+></tr
+><tr
+><td
+colspan="2"
+align="left"
+valign="top"
+>&nbsp;(Ausangate) </td
+><td
+align="left"
+valign="top"
+>&nbsp;</td
+><td
+align="right"
+valign="top"
+>&nbsp;</td
+><td
+align="right"
+valign="top"
+>&nbsp;</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Toro </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>20,932</td
+><td
+align="right"
+valign="top"
+>6,380</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Tres Cruces</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>20,853</td
+><td
+align="right"
+valign="top"
+>6,356</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Huandoy</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>20,852</td
+><td
+align="right"
+valign="top"
+>6,356</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Parinacota</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Bolivia/Chile</td
+><td
+align="right"
+valign="top"
+>20,768</td
+><td
+align="right"
+valign="top"
+>6,330</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Tortolas</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>20,745</td
+><td
+align="right"
+valign="top"
+>6,323</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0811880"
+>Chimborazo</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Ecuador </td
+><td
+align="right"
+valign="top"
+>20,702</td
+><td
+align="right"
+valign="top"
+>6,310</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Ampato</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>20,702</td
+><td
+align="right"
+valign="top"
+>6,310</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>El Condor</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,669</td
+><td
+align="right"
+valign="top"
+>6,300</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Salcantay </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Peru </td
+><td
+align="right"
+valign="top"
+>20,574</td
+><td
+align="right"
+valign="top"
+>6,271</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Huancarhuas</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>20,531</td
+><td
+align="right"
+valign="top"
+>6,258</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Famatina</td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>20,505</td
+><td
+align="right"
+valign="top"
+>6,250</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pumasillo</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>20,492</td
+><td
+align="right"
+valign="top"
+>6,246</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Solo</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,492</td
+><td
+align="right"
+valign="top"
+>6,246</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Polleras</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,456</td
+><td
+align="right"
+valign="top"
+>6,235</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pular</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Chile</td
+><td
+align="right"
+valign="top"
+>20,423</td
+><td
+align="right"
+valign="top"
+>6,225</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Cha&#xF1;i </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>20,341</td
+><td
+align="right"
+valign="top"
+>6,200</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0830983"
+>McKinley (Denali)</a
+></td
+><td
+align="left"
+valign="top"
+>Alaska </td
+><td
+align="left"
+valign="top"
+>Alaska </td
+><td
+align="right"
+valign="top"
+>20,320</td
+><td
+align="right"
+valign="top"
+>6,194</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Aucanquilcha</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Chile</td
+><td
+align="right"
+valign="top"
+>20,295</td
+><td
+align="right"
+valign="top"
+>6,186</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Juncal</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>20,276</td
+><td
+align="right"
+valign="top"
+>6,180</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Negro</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,184</td
+><td
+align="right"
+valign="top"
+>6,152</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Quela</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,128</td
+><td
+align="right"
+valign="top"
+>6,135</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Condoriri </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Bolivia </td
+><td
+align="right"
+valign="top"
+>20,095</td
+><td
+align="right"
+valign="top"
+>6,125</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Palermo</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,079</td
+><td
+align="right"
+valign="top"
+>6,120</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Solimana </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Peru </td
+><td
+align="right"
+valign="top"
+>20,068</td
+><td
+align="right"
+valign="top"
+>6,117</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>San Juan</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>20,049</td
+><td
+align="right"
+valign="top"
+>6,111</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Sierra Nevada </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>20,023</td
+><td
+align="right"
+valign="top"
+>6,103</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Antofalla</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,013</td
+><td
+align="right"
+valign="top"
+>6,100</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Marmolejo</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>20,013</td
+><td
+align="right"
+valign="top"
+>6,100</td
+></tr
+></table
+><div
+class="fnt"
+id="A0781462"
+>1. The 1954 elevation of Everest, 29,028 ft. (8,848 m) was revised on Nov. 11, 1999, and now stands at 29,035 ft. (8,850 m).</div
+><div
+class="fnt"
+id="A0005465"
+>2. Kashmir is divided between India, Pakistan, and China, and the three countries dispute the boundaries.</div
+><div
+class="source"
+><i
+>Source:</i
+> National Geographic Society.</div
+></div
+><br/><p
+class="source"
+>Information Please&#174; Database, &#169; 2007 Pearson Education, Inc. All rights reserved.</p
+><table
+cellpadding="0"
+cellspacing="5"
+class="PageLinearNav noindex"
+><tr
+><td
+class="PLN-prev"
+><a
+href="A0777280.html"
+>The World's 14 Highest Mountain Peaks (above 8,000 meters)</a
+></td
+><td
+class="PLN-intro"
+><a
+href="A0873835.html"
+>World Geography</a
+></td
+><td
+class="PLN-next"
+><a
+href="A0777282.html"
+>Climbing the Seven Summits</a
+></td
+></tr
+></table
+><!--/BodyText--><div
+class="relContent"
+><h4>More on <em>Highest Mountain Peaks of the World </em> from Fact Monster:</h4>
+<ul><li><a href="/spot/everest3.html">Everest Almanac: Measuring Mountains</a> - Measuring Mountains The world&#39;s highest peak and past pretenders to the throne by Borgna ...</li><li><a href="/toptens/worldhighmountains.html">The Top Ten: The World&#39;s Highest Mountains</a> - December 17 - 24 The World&#39;s Highest Mountains Rank Mountain Range Country Feet 1. Everest ...</li><li><a href="/spot/everest-timeline1.html">Everest Timeline</a> - Everest Timeline A chronology of the world&#39;s highest peak by Borgna Brunner 1852&ndash;1920 ...</li><li><a href="/world.html">World &amp; News: Geography, maps, statistics, disasters, news, countries</a> - Find information about world geography, countries around the world, major world disasters, statistics, religion, flags, and more</li><li><a href="/ce6/world/A0856608.html">Andes: Geology and Geography</a> - Geology and Geography A geologically young system, the Andes were originally uplifted in the ...</li>
+</ul></div
+><!-- google_ad_section_end -->
+<div id="pagetools" style="padding-bottom:5px;padding-top:45px;text-align:center">
+<a href="http://www.factmonster.com/ipka/A0001771.html" onclick="window.print();return false;"><img src="http://i.factmonster.com/images/printer_icon.gif" width="17" hspace="2" height="16" border="0" align="middle" alt="Print this page" /><span class="printcontentlink">Print this page</span></a>&nbsp;&nbsp;&nbsp;         <a href="/citethispage.php" onclick="event.cancelBubble=true;citation('ipka','%2Fipka%2FA0001771.html');return false;" target="_blank"><img
+        src="http://i.factmonster.com/images/cite_icon.gif" hspace="2" vspace="0" width="15" height="17"
+border="0" align="middle" alt="Cite this page" /><span
+class="printcontentlink">Cite this page</span></a></div>
+
+</td>
+<td id="sidebar-right" class="bodybg" style="width:320px;vertical-align:top;border-left:1px solid #000;position:relative;top:0;">
+
+
+
+<div style="width:150px;margin-top:-63px;position:absolute;margin-right:-22px">
+<ul class="fmNav fr">
+<li id="helpquestion"><a href="/helpfaqs.html"><span>Help</span></a></li>
+</ul>
+</div>
+
+<div style="width:70px;margin-top:-63px;position:absolute;margin-left:-27px">
+<ul class="fmNav fl">
+<li id="sitemap"><a href="/sitemap.html"><span>Site Map</span></a></li>
+</ul>
+</div>
+
+<div style="margin-top:-20px;position:absolute;text-align:left;margin-left:6px" class="ftext"><a href="/atlas/">Atlas</a>&nbsp;&middot;&nbsp;<a href="/almanacs.html">Almanac</a>&nbsp;&middot;&nbsp;<a href="http://dictionary.factmonster.com">Dictionary</a>&nbsp;&middot;&nbsp;<a href="/encyclopedia.html">Encyclopedia</a></div>
+
+<div id="mktplace">
+<div style="padding-top:3px"><div class="interior"><script type="text/javascript">
+  var ord = window.ord || Math.floor(Math.random() * 1e16);
+  document.write('<script type="text/javascript" src="http://ad.doubleclick.net/N4403/adj/factmonster.com1/ros;sect=ros;sz=300x250;;ord=' + ord + '?"><\/script>');
+</script><noscript><a
+href="http://ad.doubleclick.net/N4403/jump/factmonster.com1/ros;sect=ros;sz=300x250;ord=495051065?"
+target="_blank"><img
+src="http://ad.doubleclick.net/N4403/ad/factmonster.com1/ros;sect=ros;sz=300x250;ord=495051065?"
+width="300" height="250" border="0"
+alt="Click Here!" />Click Here!</a></noscript></div></div><div style="float:right;padding:12px 0"><div class="interior"><script type="text/javascript">
+  var ord = window.ord || Math.floor(Math.random() * 1e16);
+  document.write('<script type="text/javascript" src="http://ad.doubleclick.net/N4403/adj/factmonster.com1/ros;sect=ros;sz=160x600;;ord=' + ord + '?"><\/script>');
+</script><noscript><a
+href="http://ad.doubleclick.net/N4403/jump/factmonster.com1/ros;sect=ros;sz=160x600;ord=495051065?"
+target="_blank"><img
+src="http://ad.doubleclick.net/N4403/ad/factmonster.com1/ros;sect=ros;sz=160x600;ord=495051065?"
+width="160" height="600" border="0"
+alt="Click Here!" />Click Here!</a></noscript></div></div><div
+><div style="text-align:center;"><p><a href="/books/rangers-apprentice/"><img src="//i.factmonster.com/images/rangersad.gif" alt=""
+/></a></p></div
+><div style="text-align:center;"><p><a href="/quizzes"><img src="//i.factmonster.com/images/quizad.gif" alt=""/></a></p></div
+><div style="text-align:center;"><p><a href="/games/hangman/"><img src="//i.factmonster.com/images/hangmanad.gif" alt=""/></a></p></div
+><div style="text-align:center;"><p><a href="/games/tictactoe.html"><img src="//i.factmonster.com/images/tictactoead.gif" alt=""/></a></p></div
+><div style="text-align:center;"><p><a href="/xwords/"><img src="//i.factmonster.com/images/xwordad.gif" alt=""/></a></p></div
+><img src="//i.factmonster.com/images/clearpix.gif" width="120" height="1" alt=""
+/></div>
+
+
+
+<!-- TutorVista -->
+<div class="tutIP-infoarea">
+			<div style="padding:5px;">
+				<h1>24 X 7</h1>
+				<h2>Private Tutor</h2>
+				<div style="padding-top:5px;">
+					<a href="http://vista.tutorvista.com/cm/campaign.php?cpid=40000"><img src="//i.factmonster.com/images/tutIP-try_button_sm.gif" width="115" height="33" border="0" alt="Click Here for Details" /></a>
+				</div>
+				<div style="padding-top:5px;padding-bottom:5px;">
+					<table cellpadding="3" cellspacing="0" border="0" width="100%">
+						<tr>
+							<td width="5" valign="top">
+								<img src="//i.factmonster.com/images/tutIP-bullet_orange.gif" width="5" height="5" border="0" alt="" style="padding-top:5px;" />
+							</td>
+							<td>24 x 7 Tutor Availability</td>
+						</tr>
+						<tr>
+							<td valign="top">
+								<img src="//i.factmonster.com/images/tutIP-bullet_orange.gif" width="5" height="5" border="0" alt="" style="padding-top:5px;" />
+							</td>
+							<td>Unlimited Online Tutoring</td>
+						</tr>
+						<tr>
+							<td valign="top">
+								<img src="//i.factmonster.com/images/tutIP-bullet_orange.gif" width="5" height="5" border="0" alt="" style="padding-top:5px;" />
+							</td>
+							<td>1-on-1 Tutoring</td>
+						</tr>
+					</table>
+				</div>
+				<div class="tutfoot">
+					Explore <a target='_blank' href='http://www.tutorvista.com/math-answers' > Free Math Answers </a>, <a target='_blank' href='http://www.tutorvista.com/calculus-help' > Calculus Tutor </a>				</div>
+			</div>
+		</div>
+<!-- End TVista -->
+
+</div> <!-- close #mktplace -->
+
+</td></tr>
+
+   </table>
+
+<div id="FOOTER">
+<a href="/citing.html">Citing Fact Monster&#x2122;</a> |
+<a href="/tools.html">Add Fact Monster&#x2122; to your site</a> |
+<a href="/contact.html?origin=/">Contact Us</a> |
+<a href="/mediakit/">Advertise with Fact Monster</a> |
+<a href="http://fen.com/resources/pages/copyright.html">Rights</a> |
+<a href="http://fen.com/resources/privacyStatement.html">Privacy</a> |
+<a href="http://fen.com/resources/agreeDisclaim.html">Terms of Use</a>
+<br />
+<b>Part of Family Education Network</b> |
+<a href="http://www.factmonster.com/">Homework Help</a> |
+<a href="http://www.infoplease.com/">Reference Site</a> |
+<a href="http://www.funbrain.com/">K-8 Kids</a> |
+<a href="http://www.poptropica.com/">Poptropica</a> |
+<a href="http://www.familyeducation.com/">Parenting Advice</a> |
+<a href="http://www.teachervision.com/">Teacher Resources</a> |
+<a href="http://www.mygradebook.com">Online Gradebook</a>
+<br />
+&copy; 2000&ndash;2013 Pearson Education, publishing as Fact Monster&#x2122;
+</div>
+</div>
+
+
+<script type="text/javascript"
+src="http://edge.quantserve.com/quant.js"></script>
+<script type="text/javascript">
+_qacct="p-c2iQpv7gXxF_A";quantserve();
+</script>
+<noscript>
+<a href="http://www.quantcast.com/p-c2iQpv7gXxF_A" target="_blank"><img
+src="http://pixel.quantserve.com/pixel/p-c2iQpv7gXxF_A.gif"
+style="display: none" border="0" height="1" width="1"
+alt="Quantcast"/></a></noscript>
+
+</body></html>
+
+None
+>>> ================================ RESTART ================================
+>>> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rel="stylesheet" type="text/css" href="//i.factmonster.com/css/fm.css" /><script
+type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script><script
+type="text/javascript" src="//i.factmonster.com/js/cookies.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<link rel="apple-touch-icon" href="http://i.infopls.com/kids/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="http://i.infopls.com/kids/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="http://i.infopls.com/kids/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="http://i.infopls.com/kids/apple-touch-icon-144x144.png" />
+
+
+<meta name="chunk" content="ART" />
+<meta name="aka" content="Elevations" />
+<meta name="etitle" content="Highest Mountain Peaks of the World " />
+<meta name="idx" content="Aconcagua Peak" />
+<meta name="idx" content="Altitudes" />
+<meta name="idx" content="Andes" />
+<meta name="idx" content="Elevations" />
+<meta name="idx" content="Everest, Mount" />
+<meta name="idx" content="Geography" />
+<meta name="idx" content="Himalayas" />
+<meta name="idx" content="K2 (Mount Godwin Austen)" />
+<meta name="idx" content="McKinley, Mount (Denali)" />
+<meta name="idx" content="Mountains" />
+<meta name="idx" content="Pamir Mountain Range" />
+<meta name="idx" content="World" />
+<meta name="isub" content="highest mountain peaks" />
+<meta name="isub" content="in U.S." />
+<meta name="isub" content="mountain peaks" />
+<meta name="isub" content="of mountain peaks" />
+<meta name="isub" content="world" />
+<meta name="seealso" content="names of mountains" />
+<meta name="title" content="Highest Mountain Peaks of the World (continued from p. 468)" />
+<meta name="waif" content="elevations of mountain peaks" />
+<meta name="waif" content="Highest Mountains" />
+<meta name="waif" content="mountain peak elevations" />
+<meta name="waif" content="the world's highest mountains" />
+<meta name="waif" content="the world's tallest mountains" />
+<meta name="waif" content="what is the height of" />
+<meta name="waif" content="world mountain peak elevations" />
+<meta name="wd" content="highest mountain|Himalayas|andes" />
+<meta name="keywords" content="Elevations Highest Mountain Peaks of the World Aconcagua Peak Altitudes Andes Everest Mount Geography Himalayas K2 Godwin Austen McKinley Denali Mountains Pamir Range in U.S names continued from p 468 world's tallest what is height mountain|Himalayas|andes" />
+<title
+>Highest Mountain Peaks of the World  | FactMonster.com</title
+><meta name="uniqid" content="A0001771" />
+<meta name="parent" content="A0873835" />
+<meta name="replaces" content="A0775289" />
+<meta name="subchannel" content="world" />
+<meta name="Channel" content="world" />
+
+
+<link rel="shortcut icon" href="http://img.factmonster.com/images/icons/fm_favicon.ico" type="image/ico"/>
+<link rel="meta" href="http://www.factmonster.com/labels.rdf" type="application/rdf+xml" title="ICRA labels" />
+<meta http-equiv="pics-Label" content='(pics-1.1 "http://www.icra.org/pics/vocabularyv03/" l gen true for "http://factmonster.com" r (n 0 s 0 v 0 l 0 oa 0 ob 0 oc 0 od 0 oe 0 of 0 og 0 oh 0 c 0) gen true for "http://www.factmonster.com" r (n 0 s 0 v 0 l 0 oa 0 ob 0 oc 0 od 0 oe 0 of 0 og 0 oh 0 c 0))' />
+<link type="text/css" rel="stylesheet" href="//i.factmonster.com/css/print.css" media="print"/>
+<style type="text/css">
+div.bannerleft {position:absolute;left:0;top:42px;vertical-align:top;text-align:left;z-index:2;}
+img.bannerright {width:510px;height:60px}
+
+/*#Wn {margin-top:96px;}*/
+#Wn .winbg {width:100%;height:60px;}
+#Wn.oversizead {margin-top:256px;}
+/*div.topbanner {position:absolute;top:0px;z-index:2;width:100%;height:94px;border-bottom:2px solid #333;margin:0 !important;padding:0 !important;text-align:center}*/
+div.oversize {height:254px}
+/*#lb, #bigleader {width:728px;margin:0 auto;padding-left:14px;background:url("http://i.factmonster.com/images/admarker_90.gif") 0 2px no-repeat #ccc;}*/
+.oversize div #bigleader,.oversize div #lb {width:850}
+#top_strip{background-color:black; color: white; font-weight:bold}
+#top_strip a, #top_strip a:visited, #top_strip a:hover{color:white;font-weight:bold}
+iframe{padding:0;margin:0;border:none;overflow:hidden}
+.winbg {background-color:#cc0}
+.bodybg {background-color:#fff}
+img.search, td.search, div.search {background-color:#f60}
+#GENDERAGE {margin:-13px -10px 10px;background-color:#06c; text-align:center; height:55px}
+ .fmNav li#$IP_CHANNEL a {color:#f60;background-image:url("/images/fmIcon_worldON.gif")}
+</style>
+
+<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="//i.factmonster.com/js/jquery.cookie.min.js"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-350786-2']);
+  _gaq.push(['_setDomainName', '.factmonster.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+//]]>
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#lb div #widgetbox_widget_parent_0').parent().parent().parent().parent().addClass('oversize').prev().addClass('oversizead');
+	$('#lb #widgetbox_widget_parent_0').parent().parent().parent().addClass('oversize').prev().addClass('oversizead');
+});
+</script>
+
+<!-- Begin comScore Tag  -->
+<script type="text/javascript" src='http://b.scorecardresearch.com/beacon.js'></script>
+<script type="text/javascript">
+  COMSCORE.beacon({
+    c1:2,
+    c2:6035556,
+    c3:"",
+    c4:"",
+    c5:"",
+    c6:"",
+    c15:""
+  });
+</script>
+<noscript>
+  <img alt="" src="http://b.scorecardresearch.com/p?c1=2&amp;c2=6035556&amp;c3=&amp;c4=&amp;c5=&amp;c6=&amp;c15=&amp;cj=1" />
+</noscript>
+<!-- End comScore Tag -->
+</head>
+<body>
+<div class="topbanner"><div id="lb"><div class="interior"><script type="text/javascript">
+  var ord = window.ord || Math.floor(Math.random() * 1e16);
+  document.write('<script type="text/javascript" src="http://ad.doubleclick.net/N4403/adj/factmonster.com1/ros;sect=ros;sz=728x90,970x90;dcopt=ist;type=pop;type=int;;ord=' + ord + '?"><\/script>');
+</script><noscript><a
+href="http://ad.doubleclick.net/N4403/jump/factmonster.com1/ros;sect=ros;sz=728x90;ord=224231593?"
+target="_blank"><img
+src="http://ad.doubleclick.net/N4403/ad/factmonster.com1/ros;sect=ros;sz=728x90;ord=224231593?"
+width="728" height="90" border="0"
+alt="Click Here!" />Click Here!</a></noscript></div></div></div><div id="Wn" class="winbg" style="margin-bottom:0;position:relative;top:0;">
+<div id="banner">
+<img style="z-index:2;position:absolute;top:0px;left:0px" src="//i.factmonster.com/images/tmpl/fm/world_title_left_bg.gif" alt="" />
+<img style="z-index:2;position:absolute;top:0px;left:113px" class="bannerright" src="//i.factmonster.com/images/tmpl/fm/world_banner1a.gif" alt="" /><img
+style="z-index:2;position:absolute;top:60px;left:305px" src="//i.factmonster.com/images/tmpl/fm/world_monster_footer1.gif" alt="" />
+<img src="//i.factmonster.com/images/clearpix.gif" style="z-index:2;position:absolute;top:0px;left:623px;width:10px;height:60px;background:#cc0" alt=""/>
+
+<div style="z-index:2;position:absolute;top:0px;left:0px">
+<img style="z-index:3;position:absolute;top:34px;left:14px" src="//i.factmonster.com/images/FMfromIPcredit.gif" alt="From Information Please" />
+<a href="/index.html" title="Back to Fact Monster Home Page"><img src="//i.factmonster.com/images/clearpix.gif" height="42" width="130" alt="Back to Fact Monster Home Page" /></a>
+</div>
+</div>
+
+<div class="winbg"><!-- --></div>
+
+<div class="bannerleft" align="left" style="width:126px">
+
+<ul class="fmNav" style="width:113px;font-size:11px;margin:0;padding:0;list-style:none">
+<li id="home"><a href="/index.html"><span>Home</span></a></li>
+<li id="world"><a href="/world.html"><span>World &amp; News</span></a></li>
+</ul>
+
+<div style="z-index:0;padding-right:13px;width:113px;background:#f60;border-bottom:2px solid #306"><!-- -->
+<ul class="fmNav" style="width:113px;font-size:11px;margin:0;padding:0;list-style:none">
+<li id="us"><a href="/us.html"><span>U.S.</span></a></li>
+<li id="people"><a href="/people.html"><span>People</span></a></li>
+<li id="funfacts"><a href="/funfacts.html"><span>Word Wise</span></a></li>
+<li id="science"><a href="/science.html"><span>Science</span></a></li>
+<li id="math"><a href="/mathmoney.html"><span>Math &amp; Money</span></a></li>
+<li id="sports"><a href="/sports.html"><span>Sports</span></a></li>
+<li id="life"><a href="/life.html"><span>Cool Stuff</span></a></li>
+<li id="games"><a href="/games.html"><span>Games &amp; Quizzes</span></a></li>
+<li id="homework"><a href="/homework/index.html"><span>Homework Center</span></a></li>
+<li class="fmInc Favs">Fact Monster Favorites
+		<ul style="margin:0;padding:0"><li><a href="/spot/01school1.html"><b>Back to School Center</b></a></li><li><a href="/states.html">The Fifty States</a></li><li><a href="/ipka/A0777008.html">U.S. Geography</a></li><li><a href="/year/calendar-2013.html">2013 Calendar</a></li><li><a href="/pages/unitconversion.html">Conversion Calculator</a></li><li><a href="/ipa/A0762524.html">Most Populous Cities of the World</a></li><li><a href="/countries.html">Country Profiles</a></li><li><a href="/math/flashcards.html">Math Flashcards</a></li><li><a href="/ipa/A0001338.html">The Tallest Buildings in the World</a></li><li><a href="/ipka/A0197622.html">Greek and Roman Mythology</a></li></ul></li><li class="fmInc RefDesk">Reference Desk
+		<ul style="margin:0;padding:0"><li><a href="/atlas/index.html">Atlas</a></li><li><a href="/almanacs.html">Almanacs</a></li><li><a href="http://dictionary.factmonster.com/">Dictionary</a></li><li><a href="/encyclopedia.html">Encyclopedia</a></li></ul></li><li id="funbrain"><a href="http://www.funbrain.com/"><span>FunBrain</span></a></li></ul>
+</div>
+
+</div>
+
+<div class="search" style="z-index:2;position:absolute;top:60px;left:113px;width:13px;height:45px;"><!-- --></div>
+<div class="search" style="z-index:3;position:absolute;top:60px;left:113px;width:13px;height:32px;border-bottom:1px solid #306"><!-- --></div>
+<form id="search" action="/search" style="z-index:3;position:absolute;top:60px;left:126px;border-bottom:1px solid #306">
+ <table class="bodybg" border="0" cellspacing="0" cellpadding="0">
+  <tr style="height:32px">
+   <td width="43" nowrap="nowrap" valign="top" class="search"><img src="//i.factmonster.com/images/tmpl/fm/search_box_a.png" width="41" height="30" border="0" alt="Search" /></td>
+ 	 <td width="105" nowrap="nowrap" align="center" class="search"><input type="hidden" name="fr" value="fmtn" /><input name="query" size="10" maxlength="35" style="margin-top:4px" /></td>
+   <td width="32" nowrap="nowrap" valign="top"><input type="image" src="//i.factmonster.com/images/tmpl/fm/search_go_button.png" style="height:32px;width:32px" alt="Go" /></td>
+  </tr>
+ </table>
+</form>
+
+<table id="Pg" style="" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td id="sidebar-left" width="126"><img src="//i.factmonster.com/images/clearpix.gif" width="126" height="1" alt="" /></td>
+<td class="bodybg" style="padding:10px;padding-top:50px" valign="top">
+
+<!-- google_ad_section_start --><div
+class="context noindex"
+><a
+href="/world.html"
+>World</a
+> > <a
+href="A0001742.html"
+>Geography</a
+> > <a
+href="A0873835.html"
+>World Geography</a
+></div
+><h1
+id="A0001771"
+class="level1"
+>Highest Mountain Peaks of the World </h1
+><!--BodyText-->
+<p>The following table lists the highest mountain peaks of the world including mountain name, mountain range, vertical height, and location, according to the National Geographic Society. </p>
+<p
+> <i
+>See </i
+><a
+href="/cgi-bin/id/A0001798"
+>Named Summits in the U.S. Over 14,000 Feet Above Sea Level</a
+> for U.S. Peaks.</p
+><p
+> <i
+>See also</i
+> <a
+href="/cgi-bin/id/A0777280"
+>Climbing the World's 14 8,000-meter Peaks</a
+>, <a
+href="/cgi-bin/id/A0777282"
+>The Seven Summits</a
+>, <a
+href="/cgi-bin/id/A0193535"
+>Mortals on Mount Olympus: A History of Climbing Everest</a
+>, and the <a
+href="/cgi-bin/id/SPOT-EVEREST1"
+>Everest Almanac</a
+>.</p
+><div
+class="center"
+><table
+id="A0001772"
+border="1"
+class="sgmltable"
+><tr
+><th
+rowspan="2"
+align="left"
+valign="bottom"
+> Mountain peak </th
+><th
+rowspan="2"
+align="left"
+valign="bottom"
+> Range </th
+><th
+rowspan="2"
+align="left"
+valign="bottom"
+> Location </th
+><th
+colspan="2"
+align="center"
+valign="bottom"
+>Height</th
+></tr
+><tr
+><th
+align="center"
+valign="bottom"
+>ft.</th
+><th
+align="center"
+valign="bottom"
+>m</th
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/SPOT-EVEREST1"
+>Everest</a
+><sup
+class="fnr"
+>1</sup
+> </td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0823736"
+>Himalayas</a
+> </td
+><td
+align="left"
+valign="top"
+>Nepal/Tibet </td
+><td
+align="right"
+valign="top"
+>29,035</td
+><td
+align="right"
+valign="top"
+>8,850</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0826831"
+>K2 (Godwin Austen)</a
+> </td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0827075"
+>Karakoram</a
+> </td
+><td
+align="left"
+valign="top"
+>Pakistan/China </td
+><td
+align="right"
+valign="top"
+>28,250</td
+><td
+align="right"
+valign="top"
+>8,611</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0826979"
+>Kanchenjunga</a
+> </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>India/Nepal</td
+><td
+align="right"
+valign="top"
+>28,169</td
+><td
+align="right"
+valign="top"
+>8,586</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Lhotse I</td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal/Tibet </td
+><td
+align="right"
+valign="top"
+>27,940</td
+><td
+align="right"
+valign="top"
+>8,516</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Makalu I</td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal/Tibet</td
+><td
+align="right"
+valign="top"
+>27,766</td
+><td
+align="right"
+valign="top"
+>8,463</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Cho Oyu</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal/Tibet</td
+><td
+align="right"
+valign="top"
+>26,906</td
+><td
+align="right"
+valign="top"
+>8,201</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Dhaulagiri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>26,795</td
+><td
+align="right"
+valign="top"
+>8,167</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Manaslu I</td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>26,781</td
+><td
+align="right"
+valign="top"
+>8,163</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0834801"
+>Nanga Parbat</a
+> </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>26,660</td
+><td
+align="right"
+valign="top"
+>8,125</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0804112"
+>Annapurna</a
+>  </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>26,545</td
+><td
+align="right"
+valign="top"
+>8,091</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Gasherbrum I</td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Pakistan/China</td
+><td
+align="right"
+valign="top"
+>26,470</td
+><td
+align="right"
+valign="top"
+>8,068</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Broad Peak </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Pakistan/China</td
+><td
+align="right"
+valign="top"
+>26,400</td
+><td
+align="right"
+valign="top"
+>8,047</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Gasherbrum II</td
+><td
+align="left"
+valign="top"
+>Karakoram</td
+><td
+align="left"
+valign="top"
+>Pakistan/China</td
+><td
+align="right"
+valign="top"
+>26,360</td
+><td
+align="right"
+valign="top"
+>8,035</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Shishma Pangma (Gosainthan) </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>26,289</td
+><td
+align="right"
+valign="top"
+>8,013</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Annapurna II </td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>26,041</td
+><td
+align="right"
+valign="top"
+>7,937</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Gyachung Kang </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>25,910</td
+><td
+align="right"
+valign="top"
+>7,897</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Disteghil Sar </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>25,858</td
+><td
+align="right"
+valign="top"
+>7,882</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Himalchuli</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>25,801</td
+><td
+align="right"
+valign="top"
+>7,864</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Nuptse </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>25,726</td
+><td
+align="right"
+valign="top"
+>7,841</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0834799"
+>Nanda Devi</a
+> </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>India </td
+><td
+align="right"
+valign="top"
+>25,663</td
+><td
+align="right"
+valign="top"
+>7,824</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Masherbrum </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Kashmir<sup
+class="fnr"
+>2</sup
+></td
+><td
+align="right"
+valign="top"
+>25,660</td
+><td
+align="right"
+valign="top"
+>7,821</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Rakaposhi </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>25,551</td
+><td
+align="right"
+valign="top"
+>7,788</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kanjut Sar </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>25,461</td
+><td
+align="right"
+valign="top"
+>7,761</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kamet </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>India/Tibet </td
+><td
+align="right"
+valign="top"
+>25,446</td
+><td
+align="right"
+valign="top"
+>7,756</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Namcha Barwa </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>25,445</td
+><td
+align="right"
+valign="top"
+>7,756</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Gurla Mandhata </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>25,355</td
+><td
+align="right"
+valign="top"
+>7,728</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Ulugh Muztagh </td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0828366"
+>Kunlun </a
+></td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>25,340</td
+><td
+align="right"
+valign="top"
+>7,723</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kungur</td
+><td
+align="left"
+valign="top"
+>Muztagh Ata</td
+><td
+align="left"
+valign="top"
+>China</td
+><td
+align="right"
+valign="top"
+>25,325</td
+><td
+align="right"
+valign="top"
+>7,719</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Tirich Mir </td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0823755"
+>Hindu Kush</a
+> </td
+><td
+align="left"
+valign="top"
+>Pakistan </td
+><td
+align="right"
+valign="top"
+>25,230</td
+><td
+align="right"
+valign="top"
+>7,690</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Saser Kangri </td
+><td
+align="left"
+valign="top"
+>Karakoram </td
+><td
+align="left"
+valign="top"
+>India</td
+><td
+align="right"
+valign="top"
+>25,172</td
+><td
+align="right"
+valign="top"
+>7,672</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Makalu II </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>25,120</td
+><td
+align="right"
+valign="top"
+>7,657</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0821247"
+>Minya Konka (Gongga Shan)</a
+></td
+><td
+align="left"
+valign="top"
+>Daxue Shan</td
+><td
+align="left"
+valign="top"
+>China</td
+><td
+align="right"
+valign="top"
+>24,900</td
+><td
+align="right"
+valign="top"
+>7,590</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kula Kangri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Bhutan </td
+><td
+align="right"
+valign="top"
+>24,783</td
+><td
+align="right"
+valign="top"
+>7,554</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Chang-tzu </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>24,780</td
+><td
+align="right"
+valign="top"
+>7,553</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Muztagh Ata </td
+><td
+align="left"
+valign="top"
+>Muztagh Ata </td
+><td
+align="left"
+valign="top"
+>China </td
+><td
+align="right"
+valign="top"
+>24,757</td
+><td
+align="right"
+valign="top"
+>7,546</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Skyang <br/>Kangri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Kashmir </td
+><td
+align="right"
+valign="top"
+>24,750</td
+><td
+align="right"
+valign="top"
+>7,544</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0923063"
+>Ismail Samani Peak</a
+> (formerly Communism Peak) </td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0837430"
+>Pamirs</a
+></td
+><td
+align="left"
+valign="top"
+>Tajikistan </td
+><td
+align="right"
+valign="top"
+>24,590</td
+><td
+align="right"
+valign="top"
+>7,495</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Jongsong Peak</td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>24,472</td
+><td
+align="right"
+valign="top"
+>7,459</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pobeda Peak</td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0848674"
+>Tien Shan</a
+></td
+><td
+align="left"
+valign="top"
+>Kyrgyzstan</td
+><td
+align="right"
+valign="top"
+>24,406</td
+><td
+align="right"
+valign="top"
+>7,439</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Sia Kangri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Kashmir</td
+><td
+align="right"
+valign="top"
+>24,350</td
+><td
+align="right"
+valign="top"
+>7,422</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Haramosh Peak</td
+><td
+align="left"
+valign="top"
+>Karakoram</td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>24,270</td
+><td
+align="right"
+valign="top"
+>7,397</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Istoro Nal</td
+><td
+align="left"
+valign="top"
+>Hindu Kush</td
+><td
+align="left"
+valign="top"
+>Pakistan</td
+><td
+align="right"
+valign="top"
+>24,240</td
+><td
+align="right"
+valign="top"
+>7,388</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Tent Peak</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>24,165</td
+><td
+align="right"
+valign="top"
+>7,365</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0812033"
+>Chomo Lhari</a
+> </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet/Bhutan </td
+><td
+align="right"
+valign="top"
+>24,040</td
+><td
+align="right"
+valign="top"
+>7,327</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Chamlang </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal </td
+><td
+align="right"
+valign="top"
+>24,012</td
+><td
+align="right"
+valign="top"
+>7,319</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kabru</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>24,002</td
+><td
+align="right"
+valign="top"
+>7,316</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Alung Gangri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>24,000</td
+><td
+align="right"
+valign="top"
+>7,315</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Baltoro Kangri</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Kashmir</td
+><td
+align="right"
+valign="top"
+>23,990</td
+><td
+align="right"
+valign="top"
+>7,312</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Muztagh Ata (K-5)</td
+><td
+align="left"
+valign="top"
+>Kunlun </td
+><td
+align="left"
+valign="top"
+>China </td
+><td
+align="right"
+valign="top"
+>23,890</td
+><td
+align="right"
+valign="top"
+>7,282</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Mana</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>India</td
+><td
+align="right"
+valign="top"
+>23,860</td
+><td
+align="right"
+valign="top"
+>7,273</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Baruntse</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>23,688</td
+><td
+align="right"
+valign="top"
+>7,220</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Nepal Peak</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>23,500</td
+><td
+align="right"
+valign="top"
+>7,163</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Amne Machin</td
+><td
+align="left"
+valign="top"
+>Kunlun</td
+><td
+align="left"
+valign="top"
+>China</td
+><td
+align="right"
+valign="top"
+>23,490</td
+><td
+align="right"
+valign="top"
+>7,160</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Gauri Sankar </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Nepal/Tibet </td
+><td
+align="right"
+valign="top"
+>23,440</td
+><td
+align="right"
+valign="top"
+>7,145</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0805716"
+>Badrinath</a
+></td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>India</td
+><td
+align="right"
+valign="top"
+>23,420</td
+><td
+align="right"
+valign="top"
+>7,138</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Nunkun</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Kashmir</td
+><td
+align="right"
+valign="top"
+>23,410</td
+><td
+align="right"
+valign="top"
+>7,135</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0829389"
+>Lenin Peak</a
+> </td
+><td
+align="left"
+valign="top"
+>Pamirs</td
+><td
+align="left"
+valign="top"
+>Tajikistan/Kyrgyzstan </td
+><td
+align="right"
+valign="top"
+>23,405</td
+><td
+align="right"
+valign="top"
+>7,134</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pyramid</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>23,400</td
+><td
+align="right"
+valign="top"
+>7,132</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Api</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>23,399</td
+><td
+align="right"
+valign="top"
+>7,132</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pauhunri</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>India/China</td
+><td
+align="right"
+valign="top"
+>23,385</td
+><td
+align="right"
+valign="top"
+>7,128</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Trisul</td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>India</td
+><td
+align="right"
+valign="top"
+>23,360</td
+><td
+align="right"
+valign="top"
+>7,120</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Korzhenevski Peak </td
+><td
+align="left"
+valign="top"
+>Pamirs</td
+><td
+align="left"
+valign="top"
+>Tajikistan </td
+><td
+align="right"
+valign="top"
+>23,310</td
+><td
+align="right"
+valign="top"
+>7,105</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kangto </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>23,260</td
+><td
+align="right"
+valign="top"
+>7,090</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Nyainqentanglha</td
+><td
+align="left"
+valign="top"
+>Nyainqentanglha Shan</td
+><td
+align="left"
+valign="top"
+>China</td
+><td
+align="right"
+valign="top"
+>23,255</td
+><td
+align="right"
+valign="top"
+>7,088</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Trisuli </td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>India</td
+><td
+align="right"
+valign="top"
+>23,210</td
+><td
+align="right"
+valign="top"
+>7,074</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Dunagiri </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>India </td
+><td
+align="right"
+valign="top"
+>23,184</td
+><td
+align="right"
+valign="top"
+>7,066</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Revolution Peak </td
+><td
+align="left"
+valign="top"
+>Pamirs</td
+><td
+align="left"
+valign="top"
+>Tajikistan </td
+><td
+align="right"
+valign="top"
+>22,880</td
+><td
+align="right"
+valign="top"
+>6,974</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0802347"
+>Aconcagua</a
+></td
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0803941"
+>Andes</a
+></td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>22,834</td
+><td
+align="right"
+valign="top"
+>6,960</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0836481"
+>Ojos del Salado</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>22,664</td
+><td
+align="right"
+valign="top"
+>6,908</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Bonete </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>22,546</td
+><td
+align="right"
+valign="top"
+>6,872</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Ama Dablam    </td
+><td
+align="left"
+valign="top"
+>Himalayas</td
+><td
+align="left"
+valign="top"
+>Nepal</td
+><td
+align="right"
+valign="top"
+>22,494</td
+><td
+align="right"
+valign="top"
+>6,856</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Tupungato </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>22,310</td
+><td
+align="right"
+valign="top"
+>6,800</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Moscow Peak </td
+><td
+align="left"
+valign="top"
+>Pamirs </td
+><td
+align="left"
+valign="top"
+>Tajikistan </td
+><td
+align="right"
+valign="top"
+>22,260</td
+><td
+align="right"
+valign="top"
+>6,785</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pissis </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>22,241</td
+><td
+align="right"
+valign="top"
+>6,779</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Mercedario </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>22,211</td
+><td
+align="right"
+valign="top"
+>6,770</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0824412"
+>Huascar&aacute;n</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Peru </td
+><td
+align="right"
+valign="top"
+>22,205</td
+><td
+align="right"
+valign="top"
+>6,768</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0830075"
+>Llullaillaco</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>22,057</td
+><td
+align="right"
+valign="top"
+>6,723</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>El Libertador </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>22,047</td
+><td
+align="right"
+valign="top"
+>6,720</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Cachi</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>22,047</td
+><td
+align="right"
+valign="top"
+>6,720</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0826883"
+>Kailas</a
+> </td
+><td
+align="left"
+valign="top"
+>Himalayas </td
+><td
+align="left"
+valign="top"
+>Tibet </td
+><td
+align="right"
+valign="top"
+>22,027</td
+><td
+align="right"
+valign="top"
+>6,714</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Incahuasi</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>21,720</td
+><td
+align="right"
+valign="top"
+>6,620</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Yerupaja</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>21,709</td
+><td
+align="right"
+valign="top"
+>6,617</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Kurumda </td
+><td
+align="left"
+valign="top"
+>Pamirs</td
+><td
+align="left"
+valign="top"
+>Tajikistan </td
+><td
+align="right"
+valign="top"
+>21,686</td
+><td
+align="right"
+valign="top"
+>6,610</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Galan</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>21,654</td
+><td
+align="right"
+valign="top"
+>6,600</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>El Muerto </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>21,463</td
+><td
+align="right"
+valign="top"
+>6,542</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Sajama </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Bolivia </td
+><td
+align="right"
+valign="top"
+>21,391</td
+><td
+align="right"
+valign="top"
+>6,520</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Nacimiento </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>21,302</td
+><td
+align="right"
+valign="top"
+>6,493</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0824975"
+>Illampu</a
+></td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Bolivia</td
+><td
+align="right"
+valign="top"
+>21,276</td
+><td
+align="right"
+valign="top"
+>6,485</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0824980"
+>Illimani</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Bolivia </td
+><td
+align="right"
+valign="top"
+>21,201</td
+><td
+align="right"
+valign="top"
+>6,462</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Coropuna</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>21,083</td
+><td
+align="right"
+valign="top"
+>6,426</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Laudo</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,997</td
+><td
+align="right"
+valign="top"
+>6,400</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0824975"
+>Ancohuma</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Bolivia </td
+><td
+align="right"
+valign="top"
+>20,958</td
+><td
+align="right"
+valign="top"
+>6,388</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Cuzco </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Peru </td
+><td
+align="right"
+valign="top"
+>20,945</td
+><td
+align="right"
+valign="top"
+>6,384</td
+></tr
+><tr
+><td
+colspan="2"
+align="left"
+valign="top"
+>&nbsp;(Ausangate) </td
+><td
+align="left"
+valign="top"
+>&nbsp;</td
+><td
+align="right"
+valign="top"
+>&nbsp;</td
+><td
+align="right"
+valign="top"
+>&nbsp;</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Toro </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina/Chile </td
+><td
+align="right"
+valign="top"
+>20,932</td
+><td
+align="right"
+valign="top"
+>6,380</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Tres Cruces</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>20,853</td
+><td
+align="right"
+valign="top"
+>6,356</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Huandoy</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>20,852</td
+><td
+align="right"
+valign="top"
+>6,356</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Parinacota</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Bolivia/Chile</td
+><td
+align="right"
+valign="top"
+>20,768</td
+><td
+align="right"
+valign="top"
+>6,330</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Tortolas</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>20,745</td
+><td
+align="right"
+valign="top"
+>6,323</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0811880"
+>Chimborazo</a
+> </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Ecuador </td
+><td
+align="right"
+valign="top"
+>20,702</td
+><td
+align="right"
+valign="top"
+>6,310</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Ampato</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>20,702</td
+><td
+align="right"
+valign="top"
+>6,310</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>El Condor</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,669</td
+><td
+align="right"
+valign="top"
+>6,300</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Salcantay </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Peru </td
+><td
+align="right"
+valign="top"
+>20,574</td
+><td
+align="right"
+valign="top"
+>6,271</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Huancarhuas</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>20,531</td
+><td
+align="right"
+valign="top"
+>6,258</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Famatina</td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>20,505</td
+><td
+align="right"
+valign="top"
+>6,250</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pumasillo</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Peru</td
+><td
+align="right"
+valign="top"
+>20,492</td
+><td
+align="right"
+valign="top"
+>6,246</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Solo</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,492</td
+><td
+align="right"
+valign="top"
+>6,246</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Polleras</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,456</td
+><td
+align="right"
+valign="top"
+>6,235</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Pular</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Chile</td
+><td
+align="right"
+valign="top"
+>20,423</td
+><td
+align="right"
+valign="top"
+>6,225</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Cha&#xF1;i </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>20,341</td
+><td
+align="right"
+valign="top"
+>6,200</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+><a
+href="/cgi-bin/id/A0830983"
+>McKinley (Denali)</a
+></td
+><td
+align="left"
+valign="top"
+>Alaska </td
+><td
+align="left"
+valign="top"
+>Alaska </td
+><td
+align="right"
+valign="top"
+>20,320</td
+><td
+align="right"
+valign="top"
+>6,194</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Aucanquilcha</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Chile</td
+><td
+align="right"
+valign="top"
+>20,295</td
+><td
+align="right"
+valign="top"
+>6,186</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Juncal</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>20,276</td
+><td
+align="right"
+valign="top"
+>6,180</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Negro</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,184</td
+><td
+align="right"
+valign="top"
+>6,152</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Quela</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,128</td
+><td
+align="right"
+valign="top"
+>6,135</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Condoriri </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Bolivia </td
+><td
+align="right"
+valign="top"
+>20,095</td
+><td
+align="right"
+valign="top"
+>6,125</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Palermo</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,079</td
+><td
+align="right"
+valign="top"
+>6,120</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Solimana </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Peru </td
+><td
+align="right"
+valign="top"
+>20,068</td
+><td
+align="right"
+valign="top"
+>6,117</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>San Juan</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>20,049</td
+><td
+align="right"
+valign="top"
+>6,111</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Sierra Nevada </td
+><td
+align="left"
+valign="top"
+>Andes </td
+><td
+align="left"
+valign="top"
+>Argentina </td
+><td
+align="right"
+valign="top"
+>20,023</td
+><td
+align="right"
+valign="top"
+>6,103</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Antofalla</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina</td
+><td
+align="right"
+valign="top"
+>20,013</td
+><td
+align="right"
+valign="top"
+>6,100</td
+></tr
+><tr
+><td
+align="left"
+valign="top"
+>Marmolejo</td
+><td
+align="left"
+valign="top"
+>Andes</td
+><td
+align="left"
+valign="top"
+>Argentina/Chile</td
+><td
+align="right"
+valign="top"
+>20,013</td
+><td
+align="right"
+valign="top"
+>6,100</td
+></tr
+></table
+><div
+class="fnt"
+id="A0781462"
+>1. The 1954 elevation of Everest, 29,028 ft. (8,848 m) was revised on Nov. 11, 1999, and now stands at 29,035 ft. (8,850 m).</div
+><div
+class="fnt"
+id="A0005465"
+>2. Kashmir is divided between India, Pakistan, and China, and the three countries dispute the boundaries.</div
+><div
+class="source"
+><i
+>Source:</i
+> National Geographic Society.</div
+></div
+><br/><p
+class="source"
+>Information Please&#174; Database, &#169; 2007 Pearson Education, Inc. All rights reserved.</p
+><table
+cellpadding="0"
+cellspacing="5"
+class="PageLinearNav noindex"
+><tr
+><td
+class="PLN-prev"
+><a
+href="A0777280.html"
+>The World's 14 Highest Mountain Peaks (above 8,000 meters)</a
+></td
+><td
+class="PLN-intro"
+><a
+href="A0873835.html"
+>World Geography</a
+></td
+><td
+class="PLN-next"
+><a
+href="A0777282.html"
+>Climbing the Seven Summits</a
+></td
+></tr
+></table
+><!--/BodyText--><div
+class="relContent"
+><h4>More on <em>Highest Mountain Peaks of the World </em> from Fact Monster:</h4>
+<ul><li><a href="/spot/everest3.html">Everest Almanac: Measuring Mountains</a> - Measuring Mountains The world&#39;s highest peak and past pretenders to the throne by Borgna ...</li><li><a href="/toptens/worldhighmountains.html">The Top Ten: The World&#39;s Highest Mountains</a> - December 17 - 24 The World&#39;s Highest Mountains Rank Mountain Range Country Feet 1. Everest ...</li><li><a href="/spot/everest-timeline1.html">Everest Timeline</a> - Everest Timeline A chronology of the world&#39;s highest peak by Borgna Brunner 1852&ndash;1920 ...</li><li><a href="/world.html">World &amp; News: Geography, maps, statistics, disasters, news, countries</a> - Find information about world geography, countries around the world, major world disasters, statistics, religion, flags, and more</li><li><a href="/ce6/world/A0856608.html">Andes: Geology and Geography</a> - Geology and Geography A geologically young system, the Andes were originally uplifted in the ...</li>
+</ul></div
+><!-- google_ad_section_end -->
+<div id="pagetools" style="padding-bottom:5px;padding-top:45px;text-align:center">
+<a href="http://www.factmonster.com/ipka/A0001771.html" onclick="window.print();return false;"><img src="http://i.factmonster.com/images/printer_icon.gif" width="17" hspace="2" height="16" border="0" align="middle" alt="Print this page" /><span class="printcontentlink">Print this page</span></a>&nbsp;&nbsp;&nbsp;         <a href="/citethispage.php" onclick="event.cancelBubble=true;citation('ipka','%2Fipka%2FA0001771.html');return false;" target="_blank"><img
+        src="http://i.factmonster.com/images/cite_icon.gif" hspace="2" vspace="0" width="15" height="17"
+border="0" align="middle" alt="Cite this page" /><span
+class="printcontentlink">Cite this page</span></a></div>
+
+</td>
+<td id="sidebar-right" class="bodybg" style="width:320px;vertical-align:top;border-left:1px solid #000;position:relative;top:0;">
+
+
+
+<div style="width:150px;margin-top:-63px;position:absolute;margin-right:-22px">
+<ul class="fmNav fr">
+<li id="helpquestion"><a href="/helpfaqs.html"><span>Help</span></a></li>
+</ul>
+</div>
+
+<div style="width:70px;margin-top:-63px;position:absolute;margin-left:-27px">
+<ul class="fmNav fl">
+<li id="sitemap"><a href="/sitemap.html"><span>Site Map</span></a></li>
+</ul>
+</div>
+
+<div style="margin-top:-20px;position:absolute;text-align:left;margin-left:6px" class="ftext"><a href="/atlas/">Atlas</a>&nbsp;&middot;&nbsp;<a href="/almanacs.html">Almanac</a>&nbsp;&middot;&nbsp;<a href="http://dictionary.factmonster.com">Dictionary</a>&nbsp;&middot;&nbsp;<a href="/encyclopedia.html">Encyclopedia</a></div>
+
+<div id="mktplace">
+<div style="padding-top:3px"><div class="interior"><script type="text/javascript">
+  var ord = window.ord || Math.floor(Math.random() * 1e16);
+  document.write('<script type="text/javascript" src="http://ad.doubleclick.net/N4403/adj/factmonster.com1/ros;sect=ros;sz=300x250;;ord=' + ord + '?"><\/script>');
+</script><noscript><a
+href="http://ad.doubleclick.net/N4403/jump/factmonster.com1/ros;sect=ros;sz=300x250;ord=224231593?"
+target="_blank"><img
+src="http://ad.doubleclick.net/N4403/ad/factmonster.com1/ros;sect=ros;sz=300x250;ord=224231593?"
+width="300" height="250" border="0"
+alt="Click Here!" />Click Here!</a></noscript></div></div><div style="float:right;padding:12px 0"><div class="interior"><script type="text/javascript">
+  var ord = window.ord || Math.floor(Math.random() * 1e16);
+  document.write('<script type="text/javascript" src="http://ad.doubleclick.net/N4403/adj/factmonster.com1/ros;sect=ros;sz=160x600;;ord=' + ord + '?"><\/script>');
+</script><noscript><a
+href="http://ad.doubleclick.net/N4403/jump/factmonster.com1/ros;sect=ros;sz=160x600;ord=224231593?"
+target="_blank"><img
+src="http://ad.doubleclick.net/N4403/ad/factmonster.com1/ros;sect=ros;sz=160x600;ord=224231593?"
+width="160" height="600" border="0"
+alt="Click Here!" />Click Here!</a></noscript></div></div><div
+><div style="text-align:center;"><p><a href="/books/rangers-apprentice/"><img src="//i.factmonster.com/images/rangersad.gif" alt=""
+/></a></p></div
+><div style="text-align:center;"><p><a href="/quizzes"><img src="//i.factmonster.com/images/quizad.gif" alt=""/></a></p></div
+><div style="text-align:center;"><p><a href="/games/hangman/"><img src="//i.factmonster.com/images/hangmanad.gif" alt=""/></a></p></div
+><div style="text-align:center;"><p><a href="/games/tictactoe.html"><img src="//i.factmonster.com/images/tictactoead.gif" alt=""/></a></p></div
+><div style="text-align:center;"><p><a href="/xwords/"><img src="//i.factmonster.com/images/xwordad.gif" alt=""/></a></p></div
+><img src="//i.factmonster.com/images/clearpix.gif" width="120" height="1" alt=""
+/></div>
+
+
+
+<!-- TutorVista -->
+<div class="tutIP-infoarea">
+			<div style="padding:5px;">
+				<h1>24 X 7</h1>
+				<h2>Private Tutor</h2>
+				<div style="padding-top:5px;">
+					<a href="http://vista.tutorvista.com/cm/campaign.php?cpid=40000"><img src="//i.factmonster.com/images/tutIP-try_button_sm.gif" width="115" height="33" border="0" alt="Click Here for Details" /></a>
+				</div>
+				<div style="padding-top:5px;padding-bottom:5px;">
+					<table cellpadding="3" cellspacing="0" border="0" width="100%">
+						<tr>
+							<td width="5" valign="top">
+								<img src="//i.factmonster.com/images/tutIP-bullet_orange.gif" width="5" height="5" border="0" alt="" style="padding-top:5px;" />
+							</td>
+							<td>24 x 7 Tutor Availability</td>
+						</tr>
+						<tr>
+							<td valign="top">
+								<img src="//i.factmonster.com/images/tutIP-bullet_orange.gif" width="5" height="5" border="0" alt="" style="padding-top:5px;" />
+							</td>
+							<td>Unlimited Online Tutoring</td>
+						</tr>
+						<tr>
+							<td valign="top">
+								<img src="//i.factmonster.com/images/tutIP-bullet_orange.gif" width="5" height="5" border="0" alt="" style="padding-top:5px;" />
+							</td>
+							<td>1-on-1 Tutoring</td>
+						</tr>
+					</table>
+				</div>
+				<div class="tutfoot">
+					Explore <a target='_blank' href='http://www.tutorvista.com/math-answers' > Free Math Answers </a>, <a target='_blank' href='http://www.tutorvista.com/calculus-help' > Calculus Tutor </a>				</div>
+			</div>
+		</div>
+<!-- End TVista -->
+
+</div> <!-- close #mktplace -->
+
+</td></tr>
+
+   </table>
+
+<div id="FOOTER">
+<a href="/citing.html">Citing Fact Monster&#x2122;</a> |
+<a href="/tools.html">Add Fact Monster&#x2122; to your site</a> |
+<a href="/contact.html?origin=/">Contact Us</a> |
+<a href="/mediakit/">Advertise with Fact Monster</a> |
+<a href="http://fen.com/resources/pages/copyright.html">Rights</a> |
+<a href="http://fen.com/resources/privacyStatement.html">Privacy</a> |
+<a href="http://fen.com/resources/agreeDisclaim.html">Terms of Use</a>
+<br />
+<b>Part of Family Education Network</b> |
+<a href="http://www.factmonster.com/">Homework Help</a> |
+<a href="http://www.infoplease.com/">Reference Site</a> |
+<a href="http://www.funbrain.com/">K-8 Kids</a> |
+<a href="http://www.poptropica.com/">Poptropica</a> |
+<a href="http://www.familyeducation.com/">Parenting Advice</a> |
+<a href="http://www.teachervision.com/">Teacher Resources</a> |
+<a href="http://www.mygradebook.com">Online Gradebook</a>
+<br />
+&copy; 2000&ndash;2013 Pearson Education, publishing as Fact Monster&#x2122;
+</div>
+</div>
+
+
+<script type="text/javascript"
+src="http://edge.quantserve.com/quant.js"></script>
+<script type="text/javascript">
+_qacct="p-c2iQpv7gXxF_A";quantserve();
+</script>
+<noscript>
+<a href="http://www.quantcast.com/p-c2iQpv7gXxF_A" target="_blank"><img
+src="http://pixel.quantserve.com/pixel/p-c2iQpv7gXxF_A.gif"
+style="display: none" border="0" height="1" width="1"
+alt="Quantcast"/></a></noscript>
+
+</body></html>
+
+None
+>>> type(page)
+<type 'str'>
+>>> len(page)
+51795
+>>> re.findall(r'Over', page)
+['Over']
+>>> re.findall(r'Over ', page)
+['Over ']
+>>> re.findall(r'Over \d', page)
+['Over 1']
+>>> re.findall(r'Over \d+', page)
+['Over 14']
+>>> re.findall(r'Over \d+,', page)
+['Over 14,']
+>>> re.findall(r'Over \d+,\d+', page)
+['Over 14,000']
+>>> re.findall(r'Over \d+,\d+Feet', page)
+[]
+>>> re.findall(r'Over \d+,\d+ Feet', page)
+['Over 14,000 Feet']
+>>> re.findall(r'Over [0-9,]+ Feet', page)
+['Over 14,000 Feet']
+>>> re.findall(r'Over ([0-9,]+) Feet', page)
+['14,000']
+>>> re.findall(r'Over\s+([0-9,]+)\s+Feet', page)
+['14,000']
+>>> mo = re.search(r'Over\s+([0-9,]+)\s+Feet', page)
+>>> mo.group(0)
+'Over 14,000 Feet'
+>>> mo.group(1)
+'14,000'
+>>> int(mo.group(1))
+
+Traceback (most recent call last):
+  File "<pyshell#152>", line 1, in <module>
+    int(mo.group(1))
+ValueError: invalid literal for int() with base 10: '14,000'
+>>> mo.group(1).replace(',' ,'')
+'14000'
+>>> mo.group(1).split(',')
+['14', '000']
+>>> ''.join(mo.group(1).split(','))
+'14000'
+>>> t = mo.group(1)
+>>> 
+>>> t
+'14,000'
+>>> t.find(',')
+2
+>>> i = t.find(',')
+>>> t[:i]
+'14'
+>>> t[i+1:]
+'000'
+>>> def remove_comma(t):
+	i = t.find(',')
+	return t[:i] + t[i+1:]
+
+>>> remove_comma('13,456')
+'13456'
+>>> mo.group(1).replace(',' ,'')
+'14000'
+>>> 
+>>> 
+>>> mo = re.search(r'Over\s+([0-9,]+)\s+Feet', page)
+>>> mo.group(1).replace(',' ,'')
+'14000'
+>>> int(mo.group(1).replace(',' ,''))
+14000
+>>> 
+>>> mo = re.search(r'Over\s+([0-9,]+)\s+Feet', page)
+>>> int(mo.group(1).replace(',' ,''))
+14000
+>>> ================================ RESTART ================================
+>>> 
+14000
+None
+>>> ================================ RESTART ================================
+>>> 
+14000
+>>> ================================ RESTART ================================
+>>> 
+14000
+>>> 
+>>> 
+>>> import BeautifulSoup
+>>> f = urllib.urlopen(url)
+>>> soup = BeautifulSoup.BeautifulSoup(f)
+>>> 
+>>> # find(tag, [attr])
+>>> # findAll(tag, [attr])
+>>> # e.tag      e.text
+>>> 
+>>> table = soup.find('table')
+>>> print table.text
+
+>>> print table
+<table class="bodybg" border="0" cellspacing="0" cellpadding="0">
+<tr style="height:32px">
+<td width="43" nowrap="nowrap" valign="top" class="search"><img src="//i.factmonster.com/images/tmpl/fm/search_box_a.png" width="41" height="30" border="0" alt="Search" /></td>
+<td width="105" nowrap="nowrap" align="center" class="search"><input type="hidden" name="fr" value="fmtn" /><input name="query" size="10" maxlength="35" style="margin-top:4px" /></td>
+<td width="32" nowrap="nowrap" valign="top"><input type="image" src="//i.factmonster.com/images/tmpl/fm/search_go_button.png" style="height:32px;width:32px" alt="Go" /></td>
+</tr>
+</table>
+>>> table = soup.find('table', id="A0001772")
+>>> print table.text
+Mountain peakRangeLocationHeightft.mEverest1HimalayasNepal/Tibet29,0358,850K2 (Godwin Austen)KarakoramPakistan/China28,2508,611KanchenjungaHimalayasIndia/Nepal28,1698,586Lhotse IHimalayasNepal/Tibet27,9408,516Makalu IHimalayasNepal/Tibet27,7668,463Cho OyuHimalayasNepal/Tibet26,9068,201DhaulagiriHimalayasNepal26,7958,167Manaslu IHimalayasNepal26,7818,163Nanga ParbatHimalayasPakistan26,6608,125AnnapurnaHimalayasNepal26,5458,091Gasherbrum IKarakoramPakistan/China26,4708,068Broad PeakKarakoramPakistan/China26,4008,047Gasherbrum IIKarakoramPakistan/China26,3608,035Shishma Pangma (Gosainthan)HimalayasTibet26,2898,013Annapurna IIHimalayasNepal26,0417,937Gyachung KangHimalayasNepal25,9107,897Disteghil SarKarakoramPakistan25,8587,882HimalchuliHimalayasNepal25,8017,864NuptseHimalayasNepal25,7267,841Nanda DeviHimalayasIndia25,6637,824MasherbrumKarakoramKashmir225,6607,821RakaposhiKarakoramPakistan25,5517,788Kanjut SarKarakoramPakistan25,4617,761KametHimalayasIndia/Tibet25,4467,756Namcha BarwaHimalayasTibet25,4457,756Gurla MandhataHimalayasTibet25,3557,728Ulugh MuztaghKunlunTibet25,3407,723KungurMuztagh AtaChina25,3257,719Tirich MirHindu KushPakistan25,2307,690Saser KangriKarakoramIndia25,1727,672Makalu IIHimalayasNepal25,1207,657Minya Konka (Gongga Shan)Daxue ShanChina24,9007,590Kula KangriHimalayasBhutan24,7837,554Chang-tzuHimalayasTibet24,7807,553Muztagh AtaMuztagh AtaChina24,7577,546SkyangKangriHimalayasKashmir24,7507,544Ismail Samani Peak(formerly Communism Peak)PamirsTajikistan24,5907,495Jongsong PeakHimalayasNepal24,4727,459Pobeda PeakTien ShanKyrgyzstan24,4067,439Sia KangriHimalayasKashmir24,3507,422Haramosh PeakKarakoramPakistan24,2707,397Istoro NalHindu KushPakistan24,2407,388Tent PeakHimalayasNepal24,1657,365Chomo LhariHimalayasTibet/Bhutan24,0407,327ChamlangHimalayasNepal24,0127,319KabruHimalayasNepal24,0027,316Alung GangriHimalayasTibet24,0007,315Baltoro KangriHimalayasKashmir23,9907,312Muztagh Ata (K-5)KunlunChina23,8907,282ManaHimalayasIndia23,8607,273BaruntseHimalayasNepal23,6887,220Nepal PeakHimalayasNepal23,5007,163Amne MachinKunlunChina23,4907,160Gauri SankarHimalayasNepal/Tibet23,4407,145BadrinathHimalayasIndia23,4207,138NunkunHimalayasKashmir23,4107,135Lenin PeakPamirsTajikistan/Kyrgyzstan23,4057,134PyramidHimalayasNepal23,4007,132ApiHimalayasNepal23,3997,132PauhunriHimalayasIndia/China23,3857,128TrisulHimalayasIndia23,3607,120Korzhenevski PeakPamirsTajikistan23,3107,105KangtoHimalayasTibet23,2607,090NyainqentanglhaNyainqentanglha ShanChina23,2557,088TrisuliHimalayasIndia23,2107,074DunagiriHimalayasIndia23,1847,066Revolution PeakPamirsTajikistan22,8806,974AconcaguaAndesArgentina22,8346,960Ojos del SaladoAndesArgentina/Chile22,6646,908BoneteAndesArgentina/Chile22,5466,872Ama DablamHimalayasNepal22,4946,856TupungatoAndesArgentina/Chile22,3106,800Moscow PeakPamirsTajikistan22,2606,785PissisAndesArgentina22,2416,779MercedarioAndesArgentina/Chile22,2116,770Huascar&aacute;nAndesPeru22,2056,768LlullaillacoAndesArgentina/Chile22,0576,723El LibertadorAndesArgentina22,0476,720CachiAndesArgentina22,0476,720KailasHimalayasTibet22,0276,714IncahuasiAndesArgentina/Chile21,7206,620YerupajaAndesPeru21,7096,617KurumdaPamirsTajikistan21,6866,610GalanAndesArgentina21,6546,600El MuertoAndesArgentina/Chile21,4636,542SajamaAndesBolivia21,3916,520NacimientoAndesArgentina21,3026,493IllampuAndesBolivia21,2766,485IllimaniAndesBolivia21,2016,462CoropunaAndesPeru21,0836,426LaudoAndesArgentina20,9976,400AncohumaAndesBolivia20,9586,388CuzcoAndesPeru20,9456,384&nbsp;(Ausangate)&nbsp;&nbsp;&nbsp;ToroAndesArgentina/Chile20,9326,380Tres CrucesAndesArgentina/Chile20,8536,356HuandoyAndesPeru20,8526,356ParinacotaAndesBolivia/Chile20,7686,330TortolasAndesArgentina/Chile20,7456,323ChimborazoAndesEcuador20,7026,310AmpatoAndesPeru20,7026,310El CondorAndesArgentina20,6696,300SalcantayAndesPeru20,5746,271HuancarhuasAndesPeru20,5316,258FamatinaAndesArgentina20,5056,250PumasilloAndesPeru20,4926,246SoloAndesArgentina20,4926,246PollerasAndesArgentina20,4566,235PularAndesChile20,4236,225Cha&#xF1;iAndesArgentina20,3416,200McKinley (Denali)AlaskaAlaska20,3206,194AucanquilchaAndesChile20,2956,186JuncalAndesArgentina/Chile20,2766,180NegroAndesArgentina20,1846,152QuelaAndesArgentina20,1286,135CondoririAndesBolivia20,0956,125PalermoAndesArgentina20,0796,120SolimanaAndesPeru20,0686,117San JuanAndesArgentina/Chile20,0496,111Sierra NevadaAndesArgentina20,0236,103AntofallaAndesArgentina20,0136,100MarmolejoAndesArgentina/Chile20,0136,100
+>>> t table.text
+SyntaxError: invalid syntax
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> import BeautifulSoup
+>>> f = urllib.urlopen(url)
+>>> soup = BeautifulSoup.BeautifulSoup(f)
+>>> table = soup.find('table', id="A0001772")
+>>> 
+>>> for row in table.findAll('tr'):
+	print row.text
+
+	
+Mountain peakRangeLocationHeight
+ft.m
+Everest1HimalayasNepal/Tibet29,0358,850
+K2 (Godwin Austen)KarakoramPakistan/China28,2508,611
+KanchenjungaHimalayasIndia/Nepal28,1698,586
+Lhotse IHimalayasNepal/Tibet27,9408,516
+Makalu IHimalayasNepal/Tibet27,7668,463
+Cho OyuHimalayasNepal/Tibet26,9068,201
+DhaulagiriHimalayasNepal26,7958,167
+Manaslu IHimalayasNepal26,7818,163
+Nanga ParbatHimalayasPakistan26,6608,125
+AnnapurnaHimalayasNepal26,5458,091
+Gasherbrum IKarakoramPakistan/China26,4708,068
+Broad PeakKarakoramPakistan/China26,4008,047
+Gasherbrum IIKarakoramPakistan/China26,3608,035
+Shishma Pangma (Gosainthan)HimalayasTibet26,2898,013
+Annapurna IIHimalayasNepal26,0417,937
+Gyachung KangHimalayasNepal25,9107,897
+Disteghil SarKarakoramPakistan25,8587,882
+Traceback (most recent call last):
+  File "<pyshell#207>", line 2, in <module>
+    print row.text
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/idlelib/PyShell.py", line 1325, in write
+    return self.shell.write(s, self.tags)
+KeyboardInterrupt
+>>> Traceback (most recent call last):
+	
+SyntaxError: invalid syntax
+>>> 
+>>> print row
+<tr><td align="left" valign="top">Disteghil Sar </td><td align="left" valign="top">Karakoram </td><td align="left" valign="top">Pakistan</td><td align="right" valign="top">25,858</td><td align="right" valign="top">7,882</td></tr>
+>>> for col in row.findAll('td'):
+	print col.text
+
+	
+Disteghil Sar
+Karakoram
+Pakistan
+25,858
+7,882
+>>> 
+>>> ================================ RESTART ================================
+>>> 
+
+Traceback (most recent call last):
+  File "/Users/raymondhettinger/dropbox/Public/sj57/getmountain.py", line 20, in <module>
+    soup = BeautifulSoup.BeautifulSoup(f)
+NameError: name 'BeautifulSoup' is not defined
+>>> ================================ RESTART ================================
+>>> 
+Mountain peakRangeLocationHeight
+ft.m
+Everest1HimalayasNepal/Tibet29,0358,850
+K2 (Godwin Austen)KarakoramPakistan/China28,2508,611
+KanchenjungaHimalayasIndia/Nepal28,1698,586
+Lhotse IHimalayasNepal/Tibet27,9408,516
+Makalu IHimalayasNepal/Tibet27,7668,463
+Cho OyuHimalayasNepal/Tibet26,9068,201
+DhaulagiriHimalayasNepal26,7958,167
+Manaslu IHimalayasNepal26,7818,163
+Nanga ParbatHimalayasPakistan26,6608,125
+AnnapurnaHimalayasNepal26,5458,091
+Gasherbrum IKarakoramPakistan/China26,4708,068
+Broad PeakKarakoramPakistan/China26,4008,047
+Gasherbrum IIKarakoramPakistan/China26,3608,035
+Shishma Pangma (Gosainthan)HimalayasTibet26,2898,013
+Annapurna IIHimalayasNepal26,0417,937
+Gyachung KangHimalayasNepal25,9107,897
+Disteghil SarKarakoramPakistan25,8587,882
+HimalchuliHimalayasNepal25,8017,864
+NuptseHimalayasNepal25,7267,841
+Nanda DeviHimalayasIndia25,6637,824
+MasherbrumKarakoramKashmir225,6607,821
+RakaposhiKarakoramPakistan25,5517,788
+Kanjut SarKarakoramPakistan25,4617,761
+KametHimalayasIndia/Tibet25,4467,756
+Namcha BarwaHimalayasTibet25,4457,756
+Gurla MandhataHimalayasTibet25,3557,728
+Ulugh MuztaghKunlunTibet25,3407,723
+KungurMuztagh AtaChina25,3257,719
+Tirich MirHindu KushPakistan25,2307,690
+Saser KangriKarakoramIndia25,1727,672
+Makalu IIHimalayasNepal25,1207,657
+Minya Konka (Gongga Shan)Daxue ShanChina24,9007,590
+Kula KangriHimalayasBhutan24,7837,554
+Chang-tzuHimalayasTibet24,7807,553
+Muztagh AtaMuztagh AtaChina24,7577,546
+SkyangKangriHimalayasKashmir24,7507,544
+Ismail Samani Peak(formerly Communism Peak)PamirsTajikistan24,5907,495
+Jongsong PeakHimalayasNepal24,4727,459
+Pobeda PeakTien ShanKyrgyzstan24,4067,439
+Sia KangriHimalayasKashmir24,3507,422
+Haramosh PeakKarakoramPakistan24,2707,397
+Istoro NalHindu KushPakistan24,2407,388
+Tent PeakHimalayasNepal24,1657,365
+Chomo LhariHimalayasTibet/Bhutan24,0407,327
+ChamlangHimalayasNepal24,0127,319
+KabruHimalayasNepal24,0027,316
+Alung GangriHimalayasTibet24,0007,315
+Baltoro KangriHimalayasKashmir23,9907,312
+Muztagh Ata (K-5)KunlunChina23,8907,282
+ManaHimalayasIndia23,8607,273
+BaruntseHimalayasNepal23,6887,220
+Nepal PeakHimalayasNepal23,5007,163
+Amne MachinKunlunChina23,4907,160
+Gauri SankarHimalayasNepal/Tibet23,4407,145
+BadrinathHimalayasIndia23,4207,138
+NunkunHimalayasKashmir23,4107,135
+Lenin PeakPamirsTajikistan/Kyrgyzstan23,4057,134
+PyramidHimalayasNepal23,4007,132
+ApiHimalayasNepal23,3997,132
+PauhunriHimalayasIndia/China23,3857,128
+TrisulHimalayasIndia23,3607,120
+Korzhenevski PeakPamirsTajikistan23,3107,105
+KangtoHimalayasTibet23,2607,090
+NyainqentanglhaNyainqentanglha ShanChina23,2557,088
+TrisuliHimalayasIndia23,2107,074
+DunagiriHimalayasIndia23,1847,066
+Revolution PeakPamirsTajikistan22,8806,974
+AconcaguaAndesArgentina22,8346,960
+Ojos del SaladoAndesArgentina/Chile22,6646,908
+BoneteAndesArgentina/Chile22,5466,872
+
+
+Traceback (most recent call last):
+  File "/Users/raymondhettinger/dropbox/Public/sj57/getmountain.py", line 24, in <module>
+    print row.text
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/idlelib/PyShell.py", line 1325, in write
+    return self.shell.write(s, self.tags)
+KeyboardInterrupt
+>>> ================================ RESTART ================================
+>>> 
+[]
+[]
+[u'Everest1', u'Himalayas', u'Nepal/Tibet', u'29,035', u'8,850']
+[u'K2 (Godwin Austen)', u'Karakoram', u'Pakistan/China', u'28,250', u'8,611']
+[u'Kanchenjunga', u'Himalayas', u'India/Nepal', u'28,169', u'8,586']
+[u'Lhotse I', u'Himalayas', u'Nepal/Tibet', u'27,940', u'8,516']
+[u'Makalu I', u'Himalayas', u'Nepal/Tibet', u'27,766', u'8,463']
+[u'Cho Oyu', u'Himalayas', u'Nepal/Tibet', u'26,906', u'8,201']
+[u'Dhaulagiri', u'Himalayas', u'Nepal', u'26,795', u'8,167']
+[u'Manaslu I', u'Himalayas', u'Nepal', u'26,781', u'8,163']
+[u'Nanga Parbat', u'Himalayas', u'Pakistan', u'26,660', u'8,125']
+[u'Annapurna', u'Himalayas', u'Nepal', u'26,545', u'8,091']
+[u'Gasherbrum I', u'Karakoram', u'Pakistan/China', u'26,470', u'8,068']
+[u'Broad Peak', u'Karakoram', u'Pakistan/China', u'26,400', u'8,047']
+[u'Gasherbrum II', u'Karakoram', u'Pakistan/China', u'26,360', u'8,035']
+[u'Shishma Pangma (Gosainthan)', u'Himalayas', u'Tibet', u'26,289', u'8,013']
+[u'Annapurna II', u'Himalayas', u'Nepal', u'26,041', u'7,937']
+Traceback (most recent call last):
+  File "/Users/raymondhettinger/dropbox/Public/sj57/getmountain.py", line 27, in <module>
+    print rowdata
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/idlelib/PyShell.py", line 1325, in write
+    return self.shell.write(s, self.tags)
+KeyboardInterrupt
+>>> ================================ RESTART ================================
+>>> 
+14000
+>>> tabledata
+[[], [], [u'Everest1', u'Himalayas', u'Nepal/Tibet', u'29,035', u'8,850'], [u'K2 (Godwin Austen)', u'Karakoram', u'Pakistan/China', u'28,250', u'8,611'], [u'Kanchenjunga', u'Himalayas', u'India/Nepal', u'28,169', u'8,586'], [u'Lhotse I', u'Himalayas', u'Nepal/Tibet', u'27,940', u'8,516'], [u'Makalu I', u'Himalayas', u'Nepal/Tibet', u'27,766', u'8,463'], [u'Cho Oyu', u'Himalayas', u'Nepal/Tibet', u'26,906', u'8,201'], [u'Dhaulagiri', u'Himalayas', u'Nepal', u'26,795', u'8,167'], [u'Manaslu I', u'Himalayas', u'Nepal', u'26,781', u'8,163'], [u'Nanga Parbat', u'Himalayas', u'Pakistan', u'26,660', u'8,125'], [u'Annapurna', u'Himalayas', u'Nepal', u'26,545', u'8,091'], [u'Gasherbrum I', u'Karakoram', u'Pakistan/China', u'26,470', u'8,068'], [u'Broad Peak', u'Karakoram', u'Pakistan/China', u'26,400', u'8,047'], [u'Gasherbrum II', u'Karakoram', u'Pakistan/China', u'26,360', u'8,035'], [u'Shishma Pangma (Gosainthan)', u'Himalayas', u'Tibet', u'26,289', u'8,013'], [u'Annapurna II', u'Himalayas', u'Nepal', u'26,041', u'7,937'], [u'Gyachung Kang', u'Himalayas', u'Nepal', u'25,910', u'7,897'], [u'Disteghil Sar', u'Karakoram', u'Pakistan', u'25,858', u'7,882'], [u'Himalchuli', u'Himalayas', u'Nepal', u'25,801', u'7,864'], [u'Nuptse', u'Himalayas', u'Nepal', u'25,726', u'7,841'], [u'Nanda Devi', u'Himalayas', u'India', u'25,663', u'7,824'], [u'Masherbrum', u'Karakoram', u'Kashmir2', u'25,660', u'7,821'], [u'Rakaposhi', u'Karakoram', u'Pakistan', u'25,551', u'7,788'], [u'Kanjut Sar', u'Karakoram', u'Pakistan', u'25,461', u'7,761'], [u'Kamet', u'Himalayas', u'India/Tibet', u'25,446', u'7,756'], [u'Namcha Barwa', u'Himalayas', u'Tibet', u'25,445', u'7,756'], [u'Gurla Mandhata', u'Himalayas', u'Tibet', u'25,355', u'7,728'], [u'Ulugh Muztagh', u'Kunlun', u'Tibet', u'25,340', u'7,723'], [u'Kungur', u'Muztagh Ata', u'China', u'25,325', u'7,719'], [u'Tirich Mir', u'Hindu Kush', u'Pakistan', u'25,230', u'7,690'], [u'Saser Kangri', u'Karakoram', u'India', u'25,172', u'7,672'], [u'Makalu II', u'Himalayas', u'Nepal', u'25,120', u'7,657'], [u'Minya Konka (Gongga Shan)', u'Daxue Shan', u'China', u'24,900', u'7,590'], [u'Kula Kangri', u'Himalayas', u'Bhutan', u'24,783', u'7,554'], [u'Chang-tzu', u'Himalayas', u'Tibet', u'24,780', u'7,553'], [u'Muztagh Ata', u'Muztagh Ata', u'China', u'24,757', u'7,546'], [u'SkyangKangri', u'Himalayas', u'Kashmir', u'24,750', u'7,544'], [u'Ismail Samani Peak(formerly Communism Peak)', u'Pamirs', u'Tajikistan', u'24,590', u'7,495'], [u'Jongsong Peak', u'Himalayas', u'Nepal', u'24,472', u'7,459'], [u'Pobeda Peak', u'Tien Shan', u'Kyrgyzstan', u'24,406', u'7,439'], [u'Sia Kangri', u'Himalayas', u'Kashmir', u'24,350', u'7,422'], [u'Haramosh Peak', u'Karakoram', u'Pakistan', u'24,270', u'7,397'], [u'Istoro Nal', u'Hindu Kush', u'Pakistan', u'24,240', u'7,388'], [u'Tent Peak', u'Himalayas', u'Nepal', u'24,165', u'7,365'], [u'Chomo Lhari', u'Himalayas', u'Tibet/Bhutan', u'24,040', u'7,327'], [u'Chamlang', u'Himalayas', u'Nepal', u'24,012', u'7,319'], [u'Kabru', u'Himalayas', u'Nepal', u'24,002', u'7,316'], [u'Alung Gangri', u'Himalayas', u'Tibet', u'24,000', u'7,315'], [u'Baltoro Kangri', u'Himalayas', u'Kashmir', u'23,990', u'7,312'], [u'Muztagh Ata (K-5)', u'Kunlun', u'China', u'23,890', u'7,282'], [u'Mana', u'Himalayas', u'India', u'23,860', u'7,273'], [u'Baruntse', u'Himalayas', u'Nepal', u'23,688', u'7,220'], [u'Nepal Peak', u'Himalayas', u'Nepal', u'23,500', u'7,163'], [u'Amne Machin', u'Kunlun', u'China', u'23,490', u'7,160'], [u'Gauri Sankar', u'Himalayas', u'Nepal/Tibet', u'23,440', u'7,145'], [u'Badrinath', u'Himalayas', u'India', u'23,420', u'7,138'], [u'Nunkun', u'Himalayas', u'Kashmir', u'23,410', u'7,135'], [u'Lenin Peak', u'Pamirs', u'Tajikistan/Kyrgyzstan', u'23,405', u'7,134'], [u'Pyramid', u'Himalayas', u'Nepal', u'23,400', u'7,132'], [u'Api', u'Himalayas', u'Nepal', u'23,399', u'7,132'], [u'Pauhunri', u'Himalayas', u'India/China', u'23,385', u'7,128'], [u'Trisul', u'Himalayas', u'India', u'23,360', u'7,120'], [u'Korzhenevski Peak', u'Pamirs', u'Tajikistan', u'23,310', u'7,105'], [u'Kangto', u'Himalayas', u'Tibet', u'23,260', u'7,090'], [u'Nyainqentanglha', u'Nyainqentanglha Shan', u'China', u'23,255', u'7,088'], [u'Trisuli', u'Himalayas', u'India', u'23,210', u'7,074'], [u'Dunagiri', u'Himalayas', u'India', u'23,184', u'7,066'], [u'Revolution Peak', u'Pamirs', u'Tajikistan', u'22,880', u'6,974'], [u'Aconcagua', u'Andes', u'Argentina', u'22,834', u'6,960'], [u'Ojos del Salado', u'Andes', u'Argentina/Chile', u'22,664', u'6,908'], [u'Bonete', u'Andes', u'Argentina/Chile', u'22,546', u'6,872'], [u'Ama Dablam', u'Himalayas', u'Nepal', u'22,494', u'6,856'], [u'Tupungato', u'Andes', u'Argentina/Chile', u'22,310', u'6,800'], [u'Moscow Peak', u'Pamirs', u'Tajikistan', u'22,260', u'6,785'], [u'Pissis', u'Andes', u'Argentina', u'22,241', u'6,779'], [u'Mercedario', u'Andes', u'Argentina/Chile', u'22,211', u'6,770'], [u'Huascar&aacute;n', u'Andes', u'Peru', u'22,205', u'6,768'], [u'Llullaillaco', u'Andes', u'Argentina/Chile', u'22,057', u'6,723'], [u'El Libertador', u'Andes', u'Argentina', u'22,047', u'6,720'], [u'Cachi', u'Andes', u'Argentina', u'22,047', u'6,720'], [u'Kailas', u'Himalayas', u'Tibet', u'22,027', u'6,714'], [u'Incahuasi', u'Andes', u'Argentina/Chile', u'21,720', u'6,620'], [u'Yerupaja', u'Andes', u'Peru', u'21,709', u'6,617'], [u'Kurumda', u'Pamirs', u'Tajikistan', u'21,686', u'6,610'], [u'Galan', u'Andes', u'Argentina', u'21,654', u'6,600'], [u'El Muerto', u'Andes', u'Argentina/Chile', u'21,463', u'6,542'], [u'Sajama', u'Andes', u'Bolivia', u'21,391', u'6,520'], [u'Nacimiento', u'Andes', u'Argentina', u'21,302', u'6,493'], [u'Illampu', u'Andes', u'Bolivia', u'21,276', u'6,485'], [u'Illimani', u'Andes', u'Bolivia', u'21,201', u'6,462'], [u'Coropuna', u'Andes', u'Peru', u'21,083', u'6,426'], [u'Laudo', u'Andes', u'Argentina', u'20,997', u'6,400'], [u'Ancohuma', u'Andes', u'Bolivia', u'20,958', u'6,388'], [u'Cuzco', u'Andes', u'Peru', u'20,945', u'6,384'], [u'&nbsp;(Ausangate)', u'&nbsp;', u'&nbsp;', u'&nbsp;'], [u'Toro', u'Andes', u'Argentina/Chile', u'20,932', u'6,380'], [u'Tres Cruces', u'Andes', u'Argentina/Chile', u'20,853', u'6,356'], [u'Huandoy', u'Andes', u'Peru', u'20,852', u'6,356'], [u'Parinacota', u'Andes', u'Bolivia/Chile', u'20,768', u'6,330'], [u'Tortolas', u'Andes', u'Argentina/Chile', u'20,745', u'6,323'], [u'Chimborazo', u'Andes', u'Ecuador', u'20,702', u'6,310'], [u'Ampato', u'Andes', u'Peru', u'20,702', u'6,310'], [u'El Condor', u'Andes', u'Argentina', u'20,669', u'6,300'], [u'Salcantay', u'Andes', u'Peru', u'20,574', u'6,271'], [u'Huancarhuas', u'Andes', u'Peru', u'20,531', u'6,258'], [u'Famatina', u'Andes', u'Argentina', u'20,505', u'6,250'], [u'Pumasillo', u'Andes', u'Peru', u'20,492', u'6,246'], [u'Solo', u'Andes', u'Argentina', u'20,492', u'6,246'], [u'Polleras', u'Andes', u'Argentina', u'20,456', u'6,235'], [u'Pular', u'Andes', u'Chile', u'20,423', u'6,225'], [u'Cha&#xF1;i', u'Andes', u'Argentina', u'20,341', u'6,200'], [u'McKinley (Denali)', u'Alaska', u'Alaska', u'20,320', u'6,194'], [u'Aucanquilcha', u'Andes', u'Chile', u'20,295', u'6,186'], [u'Juncal', u'Andes', u'Argentina/Chile', u'20,276', u'6,180'], [u'Negro', u'Andes', u'Argentina', u'20,184', u'6,152'], [u'Quela', u'Andes', u'Argentina', u'20,128', u'6,135'], [u'Condoriri', u'Andes', u'Bolivia', u'20,095', u'6,125'], [u'Palermo', u'Andes', u'Argentina', u'20,079', u'6,120'], [u'Solimana', u'Andes', u'Peru', u'20,068', u'6,117'], [u'San Juan', u'Andes', u'Argentina/Chile', u'20,049', u'6,111'], [u'Sierra Nevada', u'Andes', u'Argentina', u'20,023', u'6,103'], [u'Antofalla', u'Andes', u'Argentina', u'20,013', u'6,100'], [u'Marmolejo', u'Andes', u'Argentina/Chile', u'20,013', u'6,100']]
+>>> ================================ RESTART ================================
+>>> 
+14000
+[[],
+ [],
+ [u'Everest1', u'Himalayas', u'Nepal/Tibet', u'29,035', u'8,850'],
+ [u'K2 (Godwin Austen)', u'Karakoram', u'Pakistan/China', u'28,250', u'8,611'],
+ [u'Kanchenjunga', u'Himalayas', u'India/Nepal', u'28,169', u'8,586'],
+ [u'Lhotse I', u'Himalayas', u'Nepal/Tibet', u'27,940', u'8,516'],
+ [u'Makalu I', u'Himalayas', u'Nepal/Tibet', u'27,766', u'8,463'],
+ [u'Cho Oyu', u'Himalayas', u'Nepal/Tibet', u'26,906', u'8,201'],
+ [u'Dhaulagiri', u'Himalayas', u'Nepal', u'26,795', u'8,167'],
+ [u'Manaslu I', u'Himalayas', u'Nepal', u'26,781', u'8,163'],
+ [u'Nanga Parbat', u'Himalayas', u'Pakistan', u'26,660', u'8,125'],
+ [u'Annapurna', u'Himalayas', u'Nepal', u'26,545', u'8,091'],
+ [u'Gasherbrum I', u'Karakoram', u'Pakistan/China', u'26,470', u'8,068'],
+ [u'Broad Peak', u'Karakoram', u'Pakistan/China', u'26,400', u'8,047'],
+ [u'Gasherbrum II', u'Karakoram', u'Pakistan/China', u'26,360', u'8,035'],
+ [u'Shishma Pangma (Gosainthan)', u'Himalayas', u'Tibet', u'26,289', u'8,013'],
+ [u'Annapurna II', u'Himalayas', u'Nepal', u'26,041', u'7,937'],
+ [u'Gyachung Kang', u'Himalayas', u'Nepal', u'25,910', u'7,897'],
+ [u'Disteghil Sar', u'Karakoram', u'Pakistan', u'25,858', u'7,882'],
+ [u'Himalchuli', u'Himalayas', u'Nepal', u'25,801', u'7,864'],
+ [u'Nuptse', u'Himalayas', u'Nepal', u'25,726', u'7,841'],
+ [u'Nanda Devi', u'Himalayas', u'India', u'25,663', u'7,824'],
+ [u'Masherbrum', u'Karakoram', u'Kashmir2', u'25,660', u'7,821'],
+ [u'Rakaposhi', u'Karakoram', u'Pakistan', u'25,551', u'7,788'],
+ [u'Kanjut Sar', u'Karakoram', u'Pakistan', u'25,461', u'7,761'],
+ [u'Kamet', u'Himalayas', u'India/Tibet', u'25,446', u'7,756'],
+ [u'Namcha Barwa', u'Himalayas', u'Tibet', u'25,445', u'7,756'],
+ [u'Gurla Mandhata', u'Himalayas', u'Tibet', u'25,355', u'7,728'],
+ [u'Ulugh Muztagh', u'Kunlun', u'Tibet', u'25,340', u'7,723'],
+ [u'Kungur', u'Muztagh Ata', u'China', u'25,325', u'7,719'],
+ [u'Tirich Mir', u'Hindu Kush', u'Pakistan', u'25,230', u'7,690'],
+ [u'Saser Kangri', u'Karakoram', u'India', u'25,172', u'7,672'],
+ [u'Makalu II', u'Himalayas', u'Nepal', u'25,120', u'7,657'],
+ [u'Minya Konka (Gongga Shan)', u'Daxue Shan', u'China', u'24,900', u'7,590'],
+ [u'Kula Kangri', u'Himalayas', u'Bhutan', u'24,783', u'7,554'],
+ [u'Chang-tzu', u'Himalayas', u'Tibet', u'24,780', u'7,553'],
+ [u'Muztagh Ata', u'Muztagh Ata', u'China', u'24,757', u'7,546'],
+ [u'SkyangKangri', u'Himalayas', u'Kashmir', u'24,750', u'7,544'],
+ [u'Ismail Samani Peak(formerly Communism Peak)', u'Pamirs', u'Tajikistan', u'24,590', u'7,495'],
+ [u'Jongsong Peak', u'Himalayas', u'Nepal', u'24,472', u'7,459'],
+ [u'Pobeda Peak', u'Tien Shan', u'Kyrgyzstan', u'24,406', u'7,439'],
+ [u'Sia Kangri', u'Himalayas', u'Kashmir', u'24,350', u'7,422'],
+ [u'Haramosh Peak', u'Karakoram', u'Pakistan', u'24,270', u'7,397'],
+ [u'Istoro Nal', u'Hindu Kush', u'Pakistan', u'24,240', u'7,388'],
+ [u'Tent Peak', u'Himalayas', u'Nepal', u'24,165', u'7,365'],
+ [u'Chomo Lhari', u'Himalayas', u'Tibet/Bhutan', u'24,040', u'7,327'],
+ [u'Chamlang', u'Himalayas', u'Nepal', u'24,012', u'7,319'],
+ [u'Kabru', u'Himalayas', u'Nepal', u'24,002', u'7,316'],
+ [u'Alung Gangri', u'Himalayas', u'Tibet', u'24,000', u'7,315'],
+ [u'Baltoro Kangri', u'Himalayas', u'Kashmir', u'23,990', u'7,312'],
+ [u'Muztagh Ata (K-5)', u'Kunlun', u'China', u'23,890', u'7,282'],
+ [u'Mana', u'Himalayas', u'India', u'23,860', u'7,273'],
+ [u'Baruntse', u'Himalayas', u'Nepal', u'23,688', u'7,220'],
+ [u'Nepal Peak', u'Himalayas', u'Nepal', u'23,500', u'7,163'],
+ [u'Amne Machin', u'Kunlun', u'China', u'23,490', u'7,160'],
+ [u'Gauri Sankar', u'Himalayas', u'Nepal/Tibet', u'23,440', u'7,145'],
+ [u'Badrinath', u'Himalayas', u'India', u'23,420', u'7,138'],
+ [u'Nunkun', u'Himalayas', u'Kashmir', u'23,410', u'7,135'],
+ [u'Lenin Peak', u'Pamirs', u'Tajikistan/Kyrgyzstan', u'23,405', u'7,134'],
+ [u'Pyramid', u'Himalayas', u'Nepal', u'23,400', u'7,132'],
+ [u'Api', u'Himalayas', u'Nepal', u'23,399', u'7,132'],
+ [u'Pauhunri', u'Himalayas', u'India/China', u'23,385', u'7,128'],
+ [u'Trisul', u'Himalayas', u'India', u'23,360', u'7,120'],
+ [u'Korzhenevski Peak', u'Pamirs', u'Tajikistan', u'23,310', u'7,105'],
+ [u'Kangto', u'Himalayas', u'Tibet', u'23,260', u'7,090'],
+ [u'Nyainqentanglha', u'Nyainqentanglha Shan', u'China', u'23,255', u'7,088'],
+ [u'Trisuli', u'Himalayas', u'India', u'23,210', u'7,074'],
+ [u'Dunagiri', u'Himalayas', u'India', u'23,184', u'7,066'],
+ [u'Revolution Peak', u'Pamirs', u'Tajikistan', u'22,880', u'6,974'],
+ [u'Aconcagua', u'Andes', u'Argentina', u'22,834', u'6,960'],
+ [u'Ojos del Salado', u'Andes', u'Argentina/Chile', u'22,664', u'6,908'],
+ [u'Bonete', u'Andes', u'Argentina/Chile', u'22,546', u'6,872'],
+ [u'Ama Dablam', u'Himalayas', u'Nepal', u'22,494', u'6,856'],
+ [u'Tupungato', u'Andes', u'Argentina/Chile', u'22,310', u'6,800'],
+ [u'Moscow Peak', u'Pamirs', u'Tajikistan', u'22,260', u'6,785'],
+ [u'Pissis', u'Andes', u'Argentina', u'22,241', u'6,779'],
+ [u'Mercedario', u'Andes', u'Argentina/Chile', u'22,211', u'6,770'],
+ [u'Huascar&aacute;n', u'Andes', u'Peru', u'22,205', u'6,768'],
+ [u'Llullaillaco', u'Andes', u'Argentina/Chile', u'22,057', u'6,723'],
+ [u'El Libertador', u'Andes', u'Argentina', u'22,047', u'6,720'],
+ [u'Cachi', u'Andes', u'Argentina', u'22,047', u'6,720'],
+ [u'Kailas', u'Himalayas', u'Tibet', u'22,027', u'6,714'],
+ [u'Incahuasi', u'Andes', u'Argentina/Chile', u'21,720', u'6,620'],
+ [u'Yerupaja', u'Andes', u'Peru', u'21,709', u'6,617'],
+ [u'Kurumda', u'Pamirs', u'Tajikistan', u'21,686', u'6,610'],
+ [u'Galan', u'Andes', u'Argentina', u'21,654', u'6,600'],
+ [u'El Muerto', u'Andes', u'Argentina/Chile', u'21,463', u'6,542'],
+ [u'Sajama', u'Andes', u'Bolivia', u'21,391', u'6,520'],
+ [u'Nacimiento', u'Andes', u'Argentina', u'21,302', u'6,493'],
+ [u'Illampu', u'Andes', u'Bolivia', u'21,276', u'6,485'],
+ [u'Illimani', u'Andes', u'Bolivia', u'21,201', u'6,462'],
+ [u'Coropuna', u'Andes', u'Peru', u'21,083', u'6,426'],
+ [u'Laudo', u'Andes', u'Argentina', u'20,997', u'6,400'],
+ [u'Ancohuma', u'Andes', u'Bolivia', u'20,958', u'6,388'],
+ [u'Cuzco', u'Andes', u'Peru', u'20,945', u'6,384'],
+ [u'&nbsp;(Ausangate)', u'&nbsp;', u'&nbsp;', u'&nbsp;'],
+ [u'Toro', u'Andes', u'Argentina/Chile', u'20,932', u'6,380'],
+ [u'Tres Cruces', u'Andes', u'Argentina/Chile', u'20,853', u'6,356'],
+ [u'Huandoy', u'Andes', u'Peru', u'20,852', u'6,356'],
+ [u'Parinacota', u'Andes', u'Bolivia/Chile', u'20,768', u'6,330'],
+ [u'Tortolas', u'Andes', u'Argentina/Chile', u'20,745', u'6,323'],
+ [u'Chimborazo', u'Andes', u'Ecuador', u'20,702', u'6,310'],
+ [u'Ampato', u'Andes', u'Peru', u'20,702', u'6,310'],
+ [u'El Condor', u'Andes', u'Argentina', u'20,669', u'6,300'],
+ [u'Salcantay', u'Andes', u'Peru', u'20,574', u'6,271'],
+ [u'Huancarhuas', u'Andes', u'Peru', u'20,531', u'6,258'],
+ [u'Famatina', u'Andes', u'Argentina', u'20,505', u'6,250'],
+ [u'Pumasillo', u'Andes', u'Peru', u'20,492', u'6,246'],
+ [u'Solo', u'Andes', u'Argentina', u'20,492', u'6,246'],
+ [u'Polleras', u'Andes', u'Argentina', u'20,456', u'6,235'],
+ [u'Pular', u'Andes', u'Chile', u'20,423', u'6,225'],
+ [u'Cha&#xF1;i', u'Andes', u'Argentina', u'20,341', u'6,200'],
+ [u'McKinley (Denali)', u'Alaska', u'Alaska', u'20,320', u'6,194'],
+ [u'Aucanquilcha', u'Andes', u'Chile', u'20,295', u'6,186'],
+ [u'Juncal', u'Andes', u'Argentina/Chile', u'20,276', u'6,180'],
+ [u'Negro', u'Andes', u'Argentina', u'20,184', u'6,152'],
+ [u'Quela', u'Andes', u'Argentina', u'20,128', u'6,135'],
+ [u'Condoriri', u'Andes', u'Bolivia', u'20,095', u'6,125'],
+ [u'Palermo', u'Andes', u'Argentina', u'20,079', u'6,120'],
+ [u'Solimana', u'Andes', u'Peru', u'20,068', u'6,117'],
+ [u'San Juan', u'Andes', u'Argentina/Chile', u'20,049', u'6,111'],
+ [u'Sierra Nevada', u'Andes', u'Argentina', u'20,023', u'6,103'],
+ [u'Antofalla', u'Andes', u'Argentina', u'20,013', u'6,100'],
+ [u'Marmolejo', u'Andes', u'Argentina/Chile', u'20,013', u'6,100']]
+>>> 
+>>> 
+>>> 
+>>> 
+>>> # sum of the squares
+>>> result = []
+>>> for i in range(10):
+	s = i ** 2
+	result.append(s)
+
+	
+>>> result
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+>>> sum(result)
+285
+>>> 
+>>> 
+>>> 
+>>> [i*i for i in range(10)]
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+>>> sum([i*i for i in range(10)])
+285
+>>> 
+>>> 
+>>> names = 'manny mo jack'.split()
+>>> names
+['manny', 'mo', 'jack']
+>>> 
+>>> [name.title() for name in names]
+['Manny', 'Mo', 'Jack']
+>>> [name.title() for name in names if name.startwith('m')]
+
+Traceback (most recent call last):
+  File "<pyshell#239>", line 1, in <module>
+    [name.title() for name in names if name.startwith('m')]
+AttributeError: 'str' object has no attribute 'startwith'
+>>> [name.title() for name in names if name.startswith('m')]
+['Manny', 'Mo']
+>>> 
+>>> chr(65)
+'A'
+>>> chr(66)
+'B'
+>>> chr(32)
+' '
+>>> ord('A')
+65
+>>> ord(' ')
+32
+>>> 
+>>> chr(ord(chr(ord(chr(65)))))
+'A'
+>>> 
+>>> [ord(c) for c in 'Raymond']
+[82, 97, 121, 109, 111, 110, 100]
+>>> [ord(c)+13 for c in 'Raymond']
+[95, 110, 134, 122, 124, 123, 113]
+>>> [chr(ord(c)+13) for c in 'Raymond']
+['_', 'n', '\x86', 'z', '|', '{', 'q']
+>>> ''.join([chr(ord(c)+13) for c in 'Raymond'])
+'_n\x86z|{q'
+>>> 
+>>> 
+>>> ''.join([chr(ord(c)+13) for c in 'Raymond'])
+'_n\x86z|{q'
+>>> code = ''.join([chr(ord(c)+13) for c in 'Raymond'])
+>>> ''.join([chr(ord(c)-13) for c in code])
+'Raymond'
+>>> 
+>>> 
+>>> 
+>>> 
+>>> # ROT13
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> [len(line) for line in open('notes/stocks.txt')]
+[15, 14, 15, 15, 14, 14, 16, 15, 14, 16, 14]
+>>> len([len(line) for line in open('notes/stocks.txt')])
+11
+>>> sum([len(line) for line in open('notes/stocks.txt')])
+162
+>>> min([len(line) for line in open('notes/stocks.txt')])
+14
+>>> max([len(line) for line in open('notes/stocks.txt')])
+16
+>>> # LC have WC like capability
+>>> 
+>>> [line for line in open('notes/stocks.txt') if 'CSCO' in line]
+['CSCO,100,18.04\n', 'CSCO,150,19.05\n', 'CSCO,175,19.56\n']
+>>> # LC have GREP like capability
+>>> [line.split(',') for line in open('notes/stocks.txt') if 'CSCO' in line]
+[['CSCO', '100', '18.04\n'], ['CSCO', '150', '19.05\n'], ['CSCO', '175', '19.56\n']]
+>>> [line.split(',')[1] for line in open('notes/stocks.txt') if 'CSCO' in line]
+['100', '150', '175']
+>>> [line.split(',')[1] for line in open('notes/stocks.txt') if 'CSCO' in line]
+['100', '150', '175']
+>>> [int(line.split(',')[1]) for line in open('notes/stocks.txt') if 'CSCO' in line]
+[100, 150, 175]
+>>> sum([int(line.split(',')[1]) for line in open('notes/stocks.txt') if 'CSCO' in line])
+425
+>>> # LC have AWK like capability
+>>> >>> sum([int(line.split(',')[1]) for line in open('notes/stocks.txt') if 'CSCO' in
+	 
+SyntaxError: invalid syntax
+>>> 
+>>> 
+>>> 
+>>> 
+>>> [i**3 for i in range(10)]
+[0, 1, 8, 27, 64, 125, 216, 343, 512, 729]
+>>> ''.join([chr(ord(c)+13) for c in 'Raymond'])
+'_n\x86z|{q'
+>>> 
+>>> def rot13(c):
+	return chr(ord(c) + 13)
+
+>>> rot13('A')
+'N'
+>>> 
+>>> ''.join([rot13(c) for c in 'Raymond'])
+'_n\x86z|{q'
+>>> {2, 4, 6, 8}
+set([8, 2, 4, 6])
+>>> 
+>>> {i*i for i in range(-10, 10)}
+set([64, 1, 100, 0, 49, 9, 16, 81, 25, 4, 36])
+>>> [i*i for i in range(-10, 10)]
+[100, 81, 64, 49, 36, 25, 16, 9, 4, 1, 0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+>>> 
+>>> {'raymond': 'red', 'rachel': 'blue'}
+{'rachel': 'blue', 'raymond': 'red'}
+>>> 
+>>> 
+>>> 
+>>> {i*i : i for i in range(-10, 10)}
+{64: 8, 1: 1, 100: -10, 0: 0, 49: 7, 9: 3, 16: 4, 81: 9, 25: 5, 4: 2, 36: 6}
+>>> 
+>>> 
+>>> {c : ord(c) for c in 'Raymond'}
+{'a': 97, 'd': 100, 'm': 109, 'o': 111, 'n': 110, 'R': 82, 'y': 121}
+>>> {ord(c) : c for c in 'Raymond'}
+{97: 'a', 100: 'd', 109: 'm', 110: 'n', 111: 'o', 82: 'R', 121: 'y'}
+>>> 
+>>> 
+>>> 
+>>> {i*i : i for i in range(-10, 10)}
+{64: 8, 1: 1, 100: -10, 0: 0, 49: 7, 9: 3, 16: 4, 81: 9, 25: 5, 4: 2, 36: 6}
+>>> 
+>>> d = {}
+>>> for i in range(-10, 10):
+	s = i * i
+	d[s] = i
+
+	
+>>> d
+{64: 8, 1: 1, 100: -10, 0: 0, 49: 7, 9: 3, 16: 4, 81: 9, 25: 5, 4: 2, 36: 6}
+>>> 
+>>> 
+>>> i = -8
+>>> d = {}
+>>> s = i * i
+>>> d[s] = i
+>>> d
+{64: -8}
+>>> i = 8
+>>> s = i * i
+>>> d[s] = i
+>>> d
+{64: 8}
+>>> ================================ RESTART ================================
+>>> 
+14000
+[[],
+ [],
+ [u'Everest1', u'Himalayas', u'Nepal/Tibet', u'29,035', u'8,850'],
+ [u'K2 (Godwin Austen)', u'Karakoram', u'Pakistan/China', u'28,250', u'8,611'],
+ [u'Kanchenjunga', u'Himalayas', u'India/Nepal', u'28,169', u'8,586'],
+ [u'Lhotse I', u'Himalayas', u'Nepal/Tibet', u'27,940', u'8,516'],
+ [u'Makalu I', u'Himalayas', u'Nepal/Tibet', u'27,766', u'8,463'],
+ [u'Cho Oyu', u'Himalayas', u'Nepal/Tibet', u'26,906', u'8,201'],
+ [u'Dhaulagiri', u'Himalayas', u'Nepal', u'26,795', u'8,167'],
+ [u'Manaslu I', 
+Traceback (most recent call last):
+  File "/Users/raymondhettinger/dropbox/Public/sj57/getmountain.py", line 33, in <module>
+    pprint(get_mountain_table(), width=200)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/pprint.py", line 59, in pprint
+    printer.pprint(object)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/pprint.py", line 117, in pprint
+    self._format(object, self._stream, 0, 0, {}, 0)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/pprint.py", line 221, in _format
+    allowance + 1, context, level)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/pprint.py", line 219, in _format
+    write(', ')
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/idlelib/PyShell.py", line 1325, in write
+    return self.shell.write(s, self.tags)
+KeyboardInterrupt
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+
+
+>>> 
+
+>>> 
+
+
+
+>>> 
+>>> sum([i*i for i in range(10)])
+285
+>>> sum([i*i for i in range(100)])
+328350
+>>> sum([i*i for i in range(1000000)])
+333332833333500000
+>>> sum([i*i for i in xrange(1000000)])
+333332833333500000
+>>> 
+>>> 
+>>> # TCL-1960  C-1970
+>>> 
+>>> def f(x):
+	x += 10
+	print x
+	x += 100
+	print x
+	x += 1000
+	print x
+
+	
+>>> f(1)
+11
+111
+1111
+>>> 
+>>> def f(x):
+	x += 10
+	return x
+	x += 100
+	return x
+	x += 1000
+	return x
+
+>>> f(1)
+11
+>>> f(1)
+11
+>>> 
+>>> def f(x):
+	x += 10
+	yield x
+	x += 100
+	yield x
+	x += 1000
+	yield x
+
+	
+>>> g = f(1)
+>>> g
+<generator object f at 0x102a4c230>
+>>> next(g)
+11
+>>> next(g)
+111
+>>> next(g)
+1111
+>>> next(g)
+
+Traceback (most recent call last):
+  File "<pyshell#374>", line 1, in <module>
+    next(g)
+StopIteration
+>>> for i in f(1):
+	print i
+
+	
+11
+111
+1111
+>>> list(f(1))
+[11, 111, 1111]
+>>> min(f(1))
+11
+>>> max(f(1))
+1111
+>>> sum(f(1))
+1233
+>>> tuple(f(1))
+(11, 111, 1111)
+>>> set(f(1))
+set([1111, 11, 111])
+>>> sorted(f(1))
+[11, 111, 1111]
+>>> 
+>>> 
+>>> 
+>>> 
+>>> def f():
+	yield 10
+	yield 5
+	yield 20
+
+	
+>>> g = f()
+>>> g
+<generator object f at 0x102a11d70>
+>>> next(g)
+10
+>>> next(g)
+5
+>>> next(g)
+20
+>>> next(g)
+
+Traceback (most recent call last):
+  File "<pyshell#399>", line 1, in <module>
+    next(g)
+StopIteration
+>>> for i in f():
+	print i, i*i
+
+	
+10 100
+5 25
+20 400
+>>> 
+>>> min(f())
+5
+>>> max(f())
+20
+>>> sorted(f())
+[5, 10, 20]
+>>> list(f())
+[10, 5, 20]
+>>> 
+>>> 
+>>> 
+>>> import time
+>>> time.time()
+1377206378.910193
+>>> time.time()
+1377206381.347796
+>>> time.ctime()
+'Thu Aug 22 14:19:47 2013'
+>>> time.ctime()
+'Thu Aug 22 14:19:49 2013'
+>>> time.ctime()
+'Thu Aug 22 14:19:50 2013'
+>>> 
+>>> def timestamp():
+	while True:
+		yield time.ctime()
+
+		
+>>> g = timestamp()
+>>> next(g)
+'Thu Aug 22 14:20:34 2013'
+>>> next(g)
+'Thu Aug 22 14:20:40 2013'
+>>> next(g)
+'Thu Aug 22 14:20:44 2013'
+>>> 
+>>> for t in timestamp():
+	print t
+
+	
+Thu Aug 22 14:21:18 2013
+Thu Aug 22 14:21:18 2013
+Thu Aug 22 14:21:18 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:19 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:20 2013
+Thu Aug 22 14:21:21 2013
+Thu Aug 22 14:21:21 2013
+Thu Aug 22 14:21:21 2013
+Thu Aug 22 14:21:21 2013
+Thu Aug 22 14:21:21 2013
+Thu Aug 22 14:21:21 2013
+Thu Aug 22 14:21:21 2013
+Thu Aug 22 14:21:21 2013
+Traceback (most recent call last):
+  File "<pyshell#429>", line 2, in <module>
+    print t
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/idlelib/PyShell.py", line 1325, in write
+    return self.shell.write(s, self.tags)
+KeyboardInterrupt
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> sum(range(1000000))
+499999500000
+>>> sum(xrange(1000000))
+499999500000
+>>> def myxrange(stop):
+	i = 0
+	while i < stop:
+		print i
+		i += 1
+
+		
+>>> myxrange(10)
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+>>> def myxrange(stop):
+	i = 0
+	while i < stop:
+		return i
+		i += 1
+
+		
+>>> myxrange(10)
+0
+>>> 
+>>> def myxrange(stop):
+	i = 0
+	while i < stop:
+		yield i
+		i += 1
+
+		
+>>> myxrange(10)
+<generator object myxrange at 0x101d25af0>
+>>> g = myxrange(10)
+>>> next(g)
+0
+>>> next(g)
+1
+>>> next(g)
+2
+>>> next(g)
+3
+>>> next(g)
+4
+>>> next(g)
+5
+>>> next(g)
+6
+>>> next(g)
+7
+>>> next(g)
+8
+>>> next(g)
+9
+>>> next(g)
+
+Traceback (most recent call last):
+  File "<pyshell#462>", line 1, in <module>
+    next(g)
+StopIteration
+>>> def myxrange(stop):
+	i = 0
+	while i < stop:
+		yield i
+		i += 1
+
+		
+>>> for i in myrange(10):
+	print i, i*i
+
+	
+
+Traceback (most recent call last):
+  File "<pyshell#467>", line 1, in <module>
+    for i in myrange(10):
+NameError: name 'myrange' is not defined
+>>> for i in myxrange(10):
+	print i, i*i
+
+	
+0 0
+1 1
+2 4
+3 9
+4 16
+5 25
+6 36
+7 49
+8 64
+9 81
+>>> 
+>>> 
+>>> 
+>>> 
+>>> sum([i*i for i in range(1000000)])
+333332833333500000
+>>> sum([i*i for i in myxrange(1000000)])
+333332833333500000
+>>> 
+>>> def squares(n):
+	for i in myxrange(n):
+		yield i*i
+
+		
+>>> g = squares(5)
+>>> g
+<generator object squares at 0x102a6e370>
+>>> next(g)
+0
+>>> next(g)
+1
+>>> next(g)
+4
+>>> next(g)
+9
+>>> next(g)
+16
+>>> next(g)
+
+Traceback (most recent call last):
+  File "<pyshell#488>", line 1, in <module>
+    next(g)
+StopIteration
+>>> 
+>>> 
+>>> 
+>>> def myxrange(stop):
+	i = 0
+	while i < stop:
+		yield i
+		i += 1
+
+		
+>>> def squares(n):
+	for i in myxrange(n):
+		yield i*i
+
+		
+>>> sum(squares(1000000))
+333332833333500000
+>>> ================================ RESTART ================================
+>>> 
+333332833333500000
+>>> ================================ RESTART ================================
+>>> 
+333332833333500000
+333332833333500000
+>>> ================================ RESTART ================================
+>>> 
+333332833333500000
+333332833333500000
+
+Traceback (most recent call last):
+  File "/Users/raymondhettinger/dropbox/Public/sj57/sum_of_squares.py", line 25, in <module>
+    print sum(squares(result))
+TypeError: squares() takes no arguments (1 given)
+>>> ================================ RESTART ================================
+>>> 
+333332833333500000
+333332833333500000
+
+Traceback (most recent call last):
+  File "/Users/raymondhettinger/dropbox/Public/sj57/sum_of_squares.py", line 25, in <module>
+    print sum(squares(result))
+  File "/Users/raymondhettinger/dropbox/Public/sj57/sum_of_squares.py", line 22, in squares
+    for i in xrange(n):
+TypeError: an integer is required
+>>> ================================ RESTART ================================
+>>> 
+333332833333500000
+333332833333500000
+333332833333500000
+>>> ================================ RESTART ================================
+>>> 
+333332833333500000
+333332833333500000
+333332833333500000
+333332833333500000
+>>> 
+>>> 
+>>> g = (i*i for i in xrange(5))
+>>> g
+<generator object <genexpr> at 0x1012f82d0>
+>>> next(g)
+0
+>>> next(g)
+1
+>>> next(g)
+4
+>>> next(g)
+9
+>>> next(g)
+16
+>>> next(g)
+
+Traceback (most recent call last):
+  File "<pyshell#506>", line 1, in <module>
+    next(g)
+StopIteration
+>>> ================================ RESTART ================================
+>>> 
+=============================== Source: http://dl.dropbox.com/u/3967849/sj57/links.txt ==============================
+                                    Starting download at Thu Aug 22 16:57:43 2013                                    
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/__init__.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/call_by_object.txt
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/docstrings.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/Raymond_Hettinger.png
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/kap.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/kap.dot
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/vcard.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/get_ipv4.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/looping_idioms.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/picirc.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/banner.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/docstrings.html
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/xmlbooks.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/class_demo.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/kap.html
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/kap.svg
+200  OK               http://dl.dropbox.com/u/3967849/sj57/sum_of_squares.py  --> notes/sum_of_squares.py   (updated) 
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/repl.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/spelling.py
+200  OK               http://dl.dropbox.com/u/3967849/sj57/links.txt          --> notes/links.txt           (updated) 
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/Raymond_Hettinger.vcard
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/get_books.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/highlight.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/publish.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/big.txt
+200  OK               http://dl.dropbox.com/u/3967849/sj57/dayfour.log        --> notes/dayfour.log         (updated) 
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/daythree.log
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/pexpect.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/ipv4_int_bri.txt
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/stocks.txt
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/books.xml
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/BeautifulSoup.py
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/books.json
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/PythonAwesome.pdf
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/raisin_team.csv
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/email.txt
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/daytwo.log
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/show_controllers.txt
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/IntroPython.pdf
+304  Not Modified     http://dl.dropbox.com/u/3967849/shared/islands.pdf
+304  Not Modified     http://dl.dropbox.com/u/3967849/sj57/dayone.log
+200  OK               http://dl.dropbox.com/u/3967849/sj57/getmountain.py     --> notes/getmountain.py      (updated) 
+>>> ================================ RESTART ================================
+>>> 
+HTTP/1.1 200 OK
+Date: Fri, 23 Aug 2013 00:10:41 GMT
+Server: Apache/2.2.16 (Debian)
+ETag: "105800d-50e8-4e487142c2d40"
+Accept-Ranges: bytes
+Vary: Accept-Encoding
+Keep-Alive: timeout=15, max=100
+Content-Type: text/html
+Content-Length: 20712
+Last-Modified: Thu, 22 Aug 2013 10:51:57 UTC
+Via: 1.1 sjck-dmz-wsa-1.cisco.com:80 (Cisco-IronPort-WSA/7.5.2-118)
+Connection: close
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Python Programming Language &ndash; Official Website</title>
+  <meta name="keywords" content="python programming language object oriented web free source" />
+  <meta name="description" content="      Home page for Python, an interactive, object-oriented, extensible
+      programming language. It provides an extraordinary combination of clarity and
+      versatility, and is free, open-source, and comprehensively ported." />
+  <link rel="alternate" type="application/rss+xml" title="Community Events"
+        href="http://www.python.org/channews.rdf" />
+  <link rel="alternate" type="application/rss+xml" title="Python Recipes"
+        href="http://aspn.activestate.com/ASPN/Cookbook/Python/index_rss"
+>>> ================================ RESTART ================================
+>>> 
+
+Traceback (most recent call last):
+  File "/Users/raymondhettinger/dropbox/Public/sj57/client.py", line 23, in <module>
+    page = ''.join()
+TypeError: join() takes exactly one argument (0 given)
+>>> ================================ RESTART ================================
+>>> 
+HTTP/1.1 200 OK
+Server: Apache/2.2.16 (Debian)
+ETag: "105800d-50e8-4e487142c2d40"
+Accept-Ranges: bytes
+Vary: Accept-Encoding
+Keep-Alive: timeout=15, max=100
+Content-Type: text/html
+Content-Length: 20712
+Last-Modified: Thu, 22 Aug 2013 10:51:57 UTC
+Date: Fri, 23 Aug 2013 00:10:41 GMT
+Age: 123
+Via: 1.1 sjck-dmz-wsa-1.cisco.com:80 (Cisco-IronPort-WSA/7.5.2-118)
+Connection: close
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Python Programming Language &ndash; Official Website</title>
+  <meta name="keywords" content="python programming language object oriented web free source" />
+  <meta name="description" content="      Home page for Python, an interactive, object-oriented, extensible
+      programming language. It provides an extraordinary combination of clarity and
+      versatility, and is free, open-source, and comprehensively ported." />
+  <link rel="alternate" type="application/rss+xml" title="Community Events"
+        href="http://www.python.org/channews.rdf" />
+  <link rel="alternate" type="application/rss+xml" title="Python Recipes"
+        href="http://aspn.activestate.com/ASPN/Cookbook/Python/index_rss" />
+  <link rel="alternate" type="application/rss+xml" title="Usergroup News"
+        href="http://python-groups.blogspot.com/feeds/posts/default" />
+  <link rel="alternate" type="application/rss+xml" title="Python Screencasts"
+        href="http://www.showmedo.com/latestVideoFeed/rss2.0?tag=python" />
+  <link rel="alternate" type="application/rss+xml" title="Python Podcasts"
+        href="http://www.awaretek.com/python/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Foundation News"
+        href="http://feeds.feedburner.com/PythonSoftwareFoundationNews" />
+  <link rel="alternate" type="application/rss+xml" title="Python Enhancement Proposals"
+        href="http://www.python.org/dev/peps/peps.rss" />
+  <link rel="alternate" type="application/rss+xml" title="Python Job Opportunities"
+        href="http://www.python.org/community/jobs/jobs.rss" />
+  <link rel="alternate" type="application/rss+xml" title="Reddit Feed of Python What's New Online"
+        href="http://www.reddit.com/r/Python/.rss" />
+  <link rel="alternate" type="application/rss+xml" title="Python Insider"
+        href="http://feeds.feedburner.com/PythonInsider" />
+
+  <link rel="stylesheet" type="text/css" media="screen" id="screen-switcher-stylesheet"
+        href="/styles/screen-switcher-default.css" />
+  <link rel="stylesheet" type="text/css" media="sc&#82;een"
+        href="/styles/netscape4.css" />
+  <link rel="stylesheet" type="text/css" media="print"
+        href="/styles/print.css" />
+  <link rel="alternate stylesheet" type="text/css" media="screen"
+        href="/styles/largestyles.css" title="large text" />
+  <link rel="alternate stylesheet" type="text/css" media="screen"
+        href="/styles/defaultfonts.css" title="default fonts" />
+
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Search under the www.python.org Domain"
+        href="/search-pysite.xml"/>
+
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Search within the Python Wiki"
+        href="/search-pywiki.xml"/>
+
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Search within Python Books at Google Book Search"
+        href="/search-pybooks.xml"/>
+
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Search within the Python Documentation"
+        href="/search-pydocs.xml"/>
+
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Search for a Module in the Standard Library"
+        href="/search-pymodules.xml"/>
+
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Search for Packages inside the Cheeseshop (PyPI)"
+        href="/search-pycheese.xml"/>
+
+  <link rel="search" type="application/opensearchdescription+xml"
+        title="Search Archives of the Main Python Mailing List"
+        href="/search-pythonlist.xml"/>
+
+  <script type="text/javascript" src="/js/iotbs2-key-directors-load.js"></script>
+  <script type="text/javascript" src="/js/iotbs2-directors.js"></script>
+  <script type="text/javascript" src="/js/iotbs2-core.js"></script>
+
+</head>
+
+
+<body>
+  <!-- Logo -->
+  <h1 id="logoheader">
+    <a href="/" id="logolink" accesskey="1"><img id="logo" src="/images/python-logo.gif" alt="homepage" border="0" /></a>
+  </h1>
+  <!-- Skip to Navigation -->
+  <div class="skiptonav"><a href="#left-hand-navigation" accesskey="2"><img src="/images/trans.gif" id="skiptonav" alt="skip to navigation" border="0" /></a></div>
+  <div class="skiptonav"><a href="#content-body" accesskey="3"><img src="/images/trans.gif" id="skiptocontent" alt="skip to content" border="0" /></a></div>
+  <!-- Utility Menu -->
+  <div id="utility-menu">
+    <!-- Search Box -->
+    <div id="searchbox">
+      <form method="get" action="http://google.com/search" id="searchform" name="searchform">
+        <div id="search">
+          <input type="hidden" id="domains" name="domains" value="www.python.org" />
+          <input type="hidden" id="sitesearch" name="sitesearch" value="www.python.org" />
+          <input type="hidden" id="sourceid" name="sourceid" value="google-search" />
+          <input type="text" class="input-text" name="q" id="q" />
+          <input type="submit" value="search" class="input-button" name="submit" id="submit" />
+          <a href="/search" class="reference">Advanced Search</a>
+        </div>
+      </form>
+    </div>
+    <div id="screen-switcher"></div>
+  </div>
+
+  <div id="left-hand-navigation">
+    <!-- Main Menu -->
+    <div id="menu">
+      <ul class="level-one">
+            <li>
+          <a href="/about/" title="About The Python Language">About</a>
+        </li>
+            <li>
+          <a href="/news/" title="Major Happenings Within the Python Community">News</a>
+        </li>
+            <li>
+          <a href="/doc/" title="Tutorials, Library Reference, C API">Documentation</a>
+        </li>
+            <li>
+          <a href="/download/" title="Start Running Python Under Windows, Mac, Linux and Others">Download</a>
+        </li>
+            <li>
+          <a href="/getit/" title="Alternate Download page for China">下载</a>
+        </li>
+            <li>
+          <a href="/community/" title="Mailing Lists, Jobs, Conferences, SIGs, Online Chats">Community</a>
+        </li>
+            <li>
+          <a href="/psf/" title="Python Software Foundation">Foundation</a>
+        </li>
+            <li>
+          <a href="http://docs.python.org/devguide/" title="Development of the Python language and website">Core Development</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Quick Links -->
+      <h4><a href="/about/help/">Help</a></h4>
+
+      <h4><a href="http://pypi.python.org/pypi" title="Repository of Python Software">Package Index</a></h4>
+
+      <h4><a href="/download/releases/2.7.5/">Quick Links (2.7.5)</a></h4>
+
+	<ul class="quicklinks">
+	  <li><a href="http://docs.python.org/2/" title="Manuals for Latest Stable Release">Documentation</a></li>
+	  <li><a href="/ftp/python/2.7.5/python-2.7.5.msi" title="Easy Installer of Python under Windows">Windows Installer</a></li>
+	  <li><a href="/ftp/python/2.7.5/Python-2.7.5.tar.bz2" title="Grab the Source for the Latest Stable Release">Source Distribution</a></li>
+	</ul>
+      <h4><a href="/download/releases/3.3.2/">Quick Links (3.3.2)</a></h4>
+
+	<ul class="quicklinks">
+	  <li><a href="http://docs.python.org/3/" title="Manual for Python 3.3.2 Release">Documentation</a></li>
+	  <li><a href="/ftp/python/3.3.2/python-3.3.2.msi" title="Easy Installer of Python under Windows">Windows Installer</a></li>
+	  <li><a href="/ftp/python/3.3.2/Python-3.3.2.tar.bz2" title="Grab the Source for the Python 3.3.2 Release">Source Distribution</a></li>
+	</ul>
+      <h4><a href="/community/jobs/" title="Employers and Job Openings">Python Jobs</a></h4>
+
+      <h4><a href="/community/merchandise/" title="T-shirts &amp; more; a portion goes to the PSF">Python Merchandise</a></h4>
+
+    <h4><a style="margin-top:1.5em" href="http://wiki.python.org/moin/">Python Wiki</a></h4>
+    <h4><a style="margin-top:1.5em" href="http://blog.python.org/">Python Insider Blog</a></h4>
+    <h4><a style="margin-top:1.5em" href="http://wiki.python.org/moin/Python2orPython3">Python 2 or 3?</a></h4>
+    <h4><a style="color:#D58228; margin-top:1.5em" href="/psf/donations/">Help Fund Python</a></h4>
+    <div style="align:center; padding-top: 0.5em; padding-left: 1em">
+      <a href="/psf/donations/"><img width="116" height="42" src="/images/donate.png" alt="" title="" /></a>
+    </div>
+    <div style="align:center; padding-top: 0.5em; padding-left: 2.5em">
+            <a href="http://wiki.python.org/moin/Languages"><img
+	      style="align:center"
+              width="94" height="46"
+	      src="/images/worldmap.jpg" alt="[Python resources in languages other than English]" /></a>
+    </div>
+    <div style="align:center; padding-top: 0.0em; padding-left: 0em">
+       <h4><a href="http://wiki.python.org/moin/Languages">Non-English Resources</a></h4>
+    </div>
+    <div class="calendar">
+        <iframe src="https://www.google.com/calendar/embed?title=Release%20Schedule&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=300&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=b6v58qvojllt0i6ql654r1vh00%40group.calendar.google.com&amp;color=%23B1365F&amp;" style=" border-width:0 " width="180" height="300" frameborder="0" scrolling="no">
+            <a href="http://www.google.com/calendar/ical/b6v58qvojllt0i6ql654r1vh00%40group.calendar.google.com/public/basic.ics">
+                Python Release Schedule iCal Calendar
+            </a>
+        </iframe>
+    </div>
+    <div class="calendar">
+        <iframe src="https://www.google.com/calendar/embed?title=Events%20Calendar&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=300&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=j7gov1cmnqr9tvg14k621j7t5c%40group.calendar.google.com&amp;color=%23B1365F&amp;" style=" border-width:0 " width="180" height="300" frameborder="0" scrolling="no">
+            <a href="http://www.google.com/calendar/ical/j7gov1cmnqr9tvg14k621j7t5c%40group.calendar.google.com/public/basic.ics">
+                Python Events iCal Calendar
+            </a>
+        </iframe>
+        <p class="level-one"><a href="http://pycon.org/#calendar">Add an event</a> to this calendar.</p>
+    </div>
+    <div class="calendar">
+        <iframe src="https://www.google.com/calendar/embed?title=User%20Group%20Calendar&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=300&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=3haig2m9msslkpf2tn1h56nn9g%40group.calendar.google.com&amp;color=%23125A12&amp;" style=" border-width:0 " width="180" height="300" frameborder="0" scrolling="no">
+            <a href="http://www.google.com/calendar/ical/3haig2m9msslkpf2tn1h56nn9g%40group.calendar.google.com/public/basic.ics">
+                Python User Group iCal Calendar
+            </a>
+        </iframe>
+        <p class="level-one"><a href="http://pycon.org/#calendar">Add an event</a> to this calendar.</p>
+    </div>
+  </div>
+
+  <div id="content-body">
+    <div id="body-main">
+      <div id="content">
+        
+  
+
+        <h1 class="pageheading">Python Programming Language &ndash; Official Website</h1>
+	<div id="homepage-boxes">
+          
+
+          <div class="homepage-box vote-box" style="text-align:center">
+            <h4>Support the Python Community</h4>
+            <p>Help the Python community
+               by <a href="http://www.psfmember.org">becoming an associate member</a> or 
+               <a href="/psf/donations/">making a one-time donation</a>.</p>
+	  </div>
+          
+          <div class="homepage-box vote-box" style="text-align:center">
+           <h4><a href="http://wiki.python.org/moin/Python2orPython3">Python 3</a> Poll</h4>
+           <p>I wish there was Python 3 support in</p>
+           <form method="POST" action="/3kpoll">
+             <p><input type="text" class="input-text" name="pkg" /></p>
+             <p>(enter <a href="http://pypi.python.org/pypi">PyPI package name</a>)</p>
+             <p>
+               <input type="submit" value="Vote" />
+               <a href="/3kpoll">Results</a>
+             </p>
+           </form>
+          </div>
+
+          <div class="homepage-box success">
+           
+            <h4>AFNIC.fr uses Python...</h4>
+            <a href="/about/success/suzanne/">
+              <img class="success" alt="success story photo" 
+                src="/images/success/afnic.fr.png" /></a>
+	      <p>... joining users such as <a class="reference" href="about/success/rackspace/">Rackspace</a>,
+	      <a class="reference" href="about/success/ilm/">Industrial Light and Magic</a>,
+	      <a class="reference" href="about/success/astra/">AstraZeneca</a>,
+	      <a class="reference" href="about/success/honeywell/">Honeywell</a>,
+	      <a class="reference" href="about/success/">and many others</a>.</p>
+          </div>
+
+          
+	    <div id="quote" class="homepage-box">
+	      
+	      <h4>What they are saying...</h4>
+	      <div>
+                <b>Ubuntu Linux:</b><br />
+                <!--utf-8--><!--0.4--><p>Ubuntu prefers the community to contribute work in Python. We develop
+our own tools and scripts in Python and it's much easier for us to
+integrate your work if you use the same platform.</p>
+<p>-- The Ubuntu Linux developers, from <a class="reference" href="http://www.ubuntu.com/community/developerzone/bounties">their list of programming bounties</a>.</p>
+              </div>
+	      <a href="/about/quotes" class="more" title="more quotes">more...</a>      
+	    </div>
+
+	  <div class="homepage-box">
+	    <h4>Using Python For...</h4>
+	    <ul>
+		<li class="group"><a href="http://wiki.python.org/moin/WebProgramming">Web Programming</a></li>
+		  <li>
+		    <a href="http://wiki.python.org/moin/CgiScripts">CGI</a>, 
+		    <a href="http://www.zope.org/">Zope</a>, 
+		    <a href="http://www.djangoproject.com/">Django</a>, 
+		    <a href="http://www.turbogears.org/">TurboGears</a>, 
+		  
+		  <a href="http://wiki.python.org/moin/PythonXml">XML</a>
+		  </li>
+		<li class="group"><a href="http://wiki.python.org/moin/DatabaseProgramming/">Databases</a></li>
+		  <li>
+		    <a href="http://www.egenix.com/files/python/mxODBC.html">ODBC</a>, 
+		  
+		  <a href="http://sourceforge.net/projects/mysql-python">MySQL</a>
+		  </li>
+		<li class="group"><a href="http://wiki.python.org/moin/GuiProgramming">GUI Development</a></li>
+		  <li>
+		    <a href="http://wiki.python.org/moin/WxPython">wxPython</a>, 
+		    <a href="http://wiki.python.org/moin/TkInter">tkInter</a>, 
+		    <a href="http://wiki.python.org/moin/PyGtk">PyGtk</a>, 
+		  
+		  <a href="http://wiki.python.org/moin/PyQt">PyQt</a>
+		  </li>
+		<li class="group"><a href="http://wiki.python.org/moin/NumericAndScientific">Scientific and Numeric</a></li>
+		  <li>
+		  
+		  <a href="http://www.pentangle.net/python/handbook/">Physics</a>
+		  </li>
+		<li class="group"><a href="/community/sigs/current/edu-sig">Education</a></li>
+		  <li>
+		    <a href="http://www.openbookproject.net/pybiblio/">pyBiblio</a>, 
+		  
+		  <a href="http://software-carpentry.org/">Software Carpentry Course</a>
+		  </li>
+		<li class="group"><a href="/about/apps">Networking</a></li>
+		  <li>
+		    <a href="http://docs.python.org/howto/sockets.html">Sockets</a>, 
+		  
+		  <a href="http://twistedmatrix.com/trac/">Twisted</a>
+		  </li>
+		<li class="group"><a href="/about/apps">Software Development</a></li>
+		  <li>
+		    <a href="http://buildbot.net/trac">Buildbot</a>, 
+		    <a href="http://trac.edgewall.org/">Trac</a>, 
+		    <a href="http://roundup.sourceforge.net/">Roundup</a>, 
+		  
+		  <a href="http://wiki.python.org/moin/IntegratedDevelopmentEnvironments">IDEs</a>
+		  </li>
+		<li class="group"><a href="/about/apps">Game Development</a></li>
+		  <li>
+		    <a href="http://www.pygame.org/news.html">PyGame</a>, 
+		    <a href="http://freecode.com/projects/pykyra">PyKyra</a>, 
+		  
+		  <a href="http://www.vrplumber.com/py3d.py">3D Rendering</a>
+		  </li>
+	    </ul>
+	    <a href="/about/apps" class="more">more...</a>      
+	  </div>
+	</div>
+
+        <div id="intro">
+          
+
+
+
+        
+<!--utf-8--><!--0.7-->
+
+
+
+
+<p><strong>Python is a programming language that lets you work more quickly and
+integrate your systems more effectively. You can learn to use Python
+and see almost immediate gains in productivity and lower maintenance
+costs.</strong></p>
+<p>Python runs on Windows, Linux/Unix, Mac OS X, and has been ported to
+the Java and .NET virtual machines.</p>
+<p>Python is free to use, even for commercial products, because of its
+OSI-approved <a class="reference external" href="/psf/license/">open source license</a>.</p>
+<p>New to Python or choosing between Python 2 and Python 3? Read <a class="reference external" href="http://wiki.python.org/moin/Python2orPython3">Python 2 or
+Python 3</a>.</p>
+<p>The <a class="reference external" href="/psf/">Python Software Foundation</a> holds the intellectual property
+rights behind Python, underwrites the <a class="reference external" href="http://www.pycon.org/">PyCon conference</a>, and funds many other projects in the Python community.</p>
+<p><a class="reference external" href="/about/">Read more</a>, -or- <a class="reference external" href="/download/">download Python now</a></p>
+
+
+
+        </div>
+
+        <div class="content-section">
+            <div id="newsindex" class="news-section">
+	      
+		<h2 class="news">Python 3.4.0 alpha 1 has been released</h2>
+		  <!--utf-8--><!--0.7-->
+
+
+
+
+<p>The first alpha for Python 3.4, <a class="reference external" href="/download/releases/3.4.0/">Python 3.4.0a1,</a> has been released.</p>
+		<div class="pubdate">Published: Sat, 3 August 2013, 23:00 -0800</div>
+		<h2 class="news">EuroPython 2014/2015 Conference Team Call for Site Proposals</h2>
+		  <!--utf-8--><!--0.7-->
+
+
+
+
+<p>The EuroPython Society announced <a class="reference external" href="https://ep2013.europython.eu/blog/2013/05/15/epc20145-call-proposals">the Call for Proposals for EuroPython</a>, to collect proposals from teams volunteering to organize the EuroPython conference in 2014-2015.</p>
+		<div class="pubdate">Published: Thu, 13 June 2013, 11:43 -0400</div>
+		<h2 class="news">Python 3.2.5 and 3.3.2 have been released</h2>
+		  <!--utf-8--><!--0.7-->
+
+
+
+
+<p><a class="reference external" href="/download/releases/3.2.5/">Python 3.2.5</a> and <a class="reference external" href="/download/releases/3.3.2/">Python 3.3.2</a> regression fix releases have been released.</p>
+		<div class="pubdate">Published: Wed, 15 May 2013, 22:30 +0100</div>
+		<h2 class="news">Python 2.7.5 released</h2>
+		  <!--utf-8--><!--0.7-->
+
+
+
+
+<p><a class="reference external" href="/download/releases/2.7.5/">Python 2.7.5</a> has been released.</p>
+		<div class="pubdate">Published: Wed, 15 May 2013, 11:00 -0600</div>
+		<h2 class="news">PyOhio 2013 Call for Proposals due June 1st</h2>
+		  <!--utf-8--><!--0.7-->
+
+
+
+
+<p>PyOhio (July 27-28, 2013, Columbus, OH, USA) has released its Call for Proposals, due June 1.  See <a class="reference external" href="http://pyohio.org/call-for-proposals/">http://pyohio.org/call-for-proposals/</a>.</p>
+		<div class="pubdate">Published: Fri, 10 May 2013, 16:15 -0400</div>
+		<h2 class="news">Python 3.2.4 and 3.3.1 have been released</h2>
+		  <!--utf-8--><!--0.7-->
+
+
+
+
+<p><a class="reference external" href="/download/releases/3.2.4/">Python 3.2.4</a> and <a class="reference external" href="/download/releases/3.3.1/">Python 3.3.1</a> final have been released.</p>
+		<div class="pubdate">Published: Sat, 6 April 2013, 22:30 +0200</div>
+		<h2 class="news">Python 2.7.4 released</h2>
+		  <!--utf-8--><!--0.7-->
+
+
+
+
+<p><a class="reference external" href="/download/releases/2.7.4/">Python 2.7.4</a> has been released.</p>
+		<div class="pubdate">Published: Sat, 6 April 2013, 11:00 -0500</div>
+	      [ <a href="/channews.rdf">RSS</a> ]
+             </div>
+        </div>
+
+      </div>
+
+      
+      <div id="footer">
+	<div id="credits">
+ 	  <a href="/about/website">Website maintained by the Python community</a><br/>
+	  <a href="http://www.xs4all.com/" title="Web and email hosting provided by xs4all, Netherlands">hosting by xs4all</a> /
+	  <a href="http://www.timparkin.co.uk/" title="Design by Tim Parkin, Yorkshire man, photographer and developer">design by Tim Parkin</a>
+	</div>
+	Copyright &copy; 1990-2013, <a href='/psf/'>Python Software Foundation</a><br/>
+	<a href="/about/legal">Legal Statements</a>
+      </div>
+
+
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+>>> 

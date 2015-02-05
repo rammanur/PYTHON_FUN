@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Hettinger;Raymond
+FN:Raymond Hettinger
+ORG:Raisins R Us, Inc.
+TITLE:VP of Raisin Smushing
+TEL:TYPE=WORK,VOICE:213 555-1212
+ADR:TYPE=WORK:;;100 Dried Grape Ave;Fresno;CA;90555;United States of America
+EMAIL:TYPE=PREF,INTERNET:raymondh@example.com
+REV:2013-06-03T19:52:43Z
+END:VCARD

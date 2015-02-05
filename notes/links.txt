@@ -1,0 +1,522 @@
+Introduction to Python
+Cisco -- San Jose
+August 19, 2013
+======================
+
+Taught by:  Raymond Hettinger
+            python@rcn.com
+            @raymondh
+
+This file:
+http://dl.dropbox.com/u/3967849/sj57/links.txt
+
+Download tool:
+ http://dl.dropbox.com/u/3967849/sj57/download.py
+
+HTML version of Python Files:
+    http://tinyurl.com/python-sj57
+
+
+Downloading Python2.7
+=====================
+
+    Windows:  http://www.python.org/ftp/python/2.7.5/python-2.7.5.msi
+
+    Mac:      http://www.python.org/ftp/python/2.7.5/python-2.7.5-macosx10.6.dmg
+              http://www.activestate.com/activetcl/downloads
+
+
+Resources
+=========
+* http://pymotw.com/2/xml/etree/ElementTree/index.html#module-xml.etree.ElementTree
+* http://txt2re.com/
+* http://interactive.blockdiag.com/graphviz/
+* http://sms411.net/how-to-send-email-to-a-phone/
+* http://www.doughellmann.com/PyMOTW/py-modindex.html
+* http://sphinx.pocoo.org/
+* http://code.activestate.com/recipes/577737-public-key-encryption-rsa/
+* https://www.mturk.com/mturk/welcome
+* http://www.edwardtufte.com/tufte/courses
+* http://www.noah.org/wiki/pexpect
+* http://www.cs.tut.fi/~jkorpela/http.html
+* https://addons.mozilla.org/En-us/firefox/addon/live-http-headers/
+
+Favorite Third-Party Modules
+============================
+* http://www.noah.org/wiki/pexpect
+* http://pyserial.sourceforge.net/shortintro.html
+* http://docs.python-requests.org/en/latest/index.html
+* https://github.com/toastdriven/itty
+* http://www.crummy.com/software/BeautifulSoup/
+* http://sphinx.pocoo.org/
+* http://pypi.python.org/pypi/selenium
+* http://docs.fabfile.org/en/1.4.1/index.html
+* http://jinja.pocoo.org/docs/templates/
+
+Other popular tools:
+    pip virtualenv http5lib pyflakes pytz nose
+    xlrd xlwt pyserial reverend.thomas requests
+    numpy scipy matplotlib itty bottle ipython
+
+
+Recommended Reading
+===================
+* http://effbot.org/zone/call-by-object.htm
+* http://docs.python.org/library/functions.html
+* http://greenteapress.com/semaphores/downey08semaphores.pdf
+* http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
+* http://golubenco.org/2009/09/19/understanding-the-code-inside-tornado-the-asynchronous-web-server-powering-friendfeed/
+* http://norvig.com/spell-correct.html
+* http://blog.apigee.com/detail/restful_api_design/
+* http://maximebf.com/blog/2012/10/building-websites-in-python-with-flask
+* http://flask.pocoo.org/docs/quickstart/
+* http://www.clemesha.org/blog/modern-python-hacker-tools-virtualenv-fabric-pip/
+* http://www.amazon.com/RESTful-Web-Services-Cookbook-Scalability/dp/0596801688
+http://dl.dropbox.com/u/3967849/sj57/call_by_object.txt
+* http://jessenoller.com/blog/2009/02/05/ssh-programming-with-paramiko-completely-different
+
+
+Magic Methods
+=============
+* http://docs.python.org/reference/datamodel.html#special-method-names
+* http://www.rafekettler.com/magicmethods.html
+
+
+Day One Files
+=============
+http://dl.dropbox.com/u/3967849/shared/__init__.py
+http://dl.dropbox.com/u/3967849/sj57/vcard.py
+http://dl.dropbox.com/u/3967849/shared/Raymond_Hettinger.png
+http://dl.dropbox.com/u/3967849/shared/Raymond_Hettinger.vcard
+ http://dl.dropbox.com/u/3967849/sj57/how_gettext_works.py
+http://dl.dropbox.com/u/3967849/sj57/class_demo.py 
+
+    def myreplace(s, t, r):
+        'Create a new string from s with t replaced by r'
+        n = len(t)
+        i = s.find(t)
+        if i == -1:
+            return s
+        return s[:i] + r + s[i+n:]
+
+    def myhelp(func):
+        'Replacement for the built-in help'
+        print 'My custom help'
+        print 'Function name:', func.__name__
+        print 'Docstring:'
+        print func.__doc__
+
+    def mysorted(iterable, reverse=False):
+        t = list(iterable)
+        t.sort(reverse=reverse)
+        return t
+
+Day Two Files
+=============
+ http://dl.dropbox.com/u/3967849/shared/mpl_demo.py
+ http://dl.dropbox.com/u/3967849/sj57/parse_interfaces.py
+ http://dl.dropbox.com/u/3967849/sj57/exception_demo.py
+http://dl.dropbox.com/u/3967849/sj57/kap.py
+http://dl.dropbox.com/u/3967849/sj57/kap.html
+http://dl.dropbox.com/u/3967849/shared/kap.svg
+http://dl.dropbox.com/u/3967849/shared/kap.dot
+http://dl.dropbox.com/u/3967849/sj57/docstrings.py
+http://dl.dropbox.com/u/3967849/sj57/docstrings.html
+http://dl.dropbox.com/u/3967849/sj57/repl.py
+ http://dl.dropbox.com/u/3967849/sj57/myeval.py
+ http://dl.dropbox.com/u/3967849/sj57/family.py
+ http://dl.dropbox.com/u/3967849/sj57/shape_demo.py
+http://dl.dropbox.com/u/3967849/sj57/xmlbooks.py
+http://dl.dropbox.com/u/3967849/sj57/get_books.py
+
+    Division:
+        >>> 3 / 8
+        0
+        >>> from __future__ import division
+        0.375
+
+
+    # LBYL -- look before you leap
+    def average(seq):
+        n = len(seq)
+        if n == 0:
+            return 1.0
+        else:
+            return sum(seq) / n
+
+    # EAFP -- easier to ask forgiveness than permission
+    def average(seq):
+        n = len(seq)
+        try:
+            return sum(seq) / n
+        except ZeroDivisionError:
+            return 1.0
+
+    def mysorted(iterable):
+        s = list(iterable)
+        s.sort()
+        return s
+
+Day Three Files
+===============
+
+http://dl.dropbox.com/u/3967849/sj57/looping_idioms.py
+ http://dl.dropbox.com/u/3967849/sj57/assignment.txt
+ http://dl.dropbox.com/u/3967849/sj57/tweet_bug.py
+ http://dl.dropbox.com/u/3967849/sj57/password.py
+ http://dl.dropbox.com/u/3967849/sj57/dedup.py
+ http://dl.dropbox.com/u/3967849/sj57/parse_interfaces.py
+ http://dl.dropbox.com/u/3967849/sj57/portfolio.py
+ http://dl.dropbox.com/u/3967849/sj57/portfolio.html
+ http://dl.dropbox.com/u/3967849/sj57/analysis.py
+ http://dl.dropbox.com/u/3967849/sj57/with_demo.py
+ http://dl.dropbox.com/u/3967849/sj57/grouping.py
+http://dl.dropbox.com/u/3967849/sj57/sum_of_squares.py
+ http://dl.dropbox.com/u/3967849/sj57/history.py
+ http://dl.dropbox.com/u/3967849/sj57/iterator_school.py
+ http://dl.dropbox.com/u/3967849/sj57/iterator_school.html
+ http://dl.dropbox.com/u/3967849/sj57/dictionary.py
+ http://dl.dropbox.com/u/3967849/sj57/test_dict.py
+
+Lists versus iterators
+=======================
+
+    inventory        jit manufacturing
+    uses much mem    memory friendly -> fast
+    ----
+    list             iterator
+    ----             --------
+    range()          xrange()
+    zip()            izip()
+     --              enumerate()
+     --              reversed()
+    sorted()
+    d.items()        d.iteritems()
+
+
+    other types
+    ===========
+    tuple(s)
+    set(s)
+    dict.fromkeys(s)
+
+
+How to use subprocess:
+
+    >>> import subprocess
+    >>> s = subprocess.check_output('netstat -a', shell=True)
+    >>> [line.split()[4] for line in s.splitlines() if 'tcp4' in line]
+
+Example of state update using tuple packing and unpacking:
+
+    x, y, z, dx, dy, dz = (x+dx*t,
+                           y+dy*t,
+                           z+dz*t,
+                           f(planets, x, y, z, 'x'),
+                           f(planets, x, y, z, 'y'),
+                           f(planets, x, y, z, 'z'))
+
+
+Day Four Files
+==============
+ http://dl.dropbox.com/u/3967849/sj57/re.txt
+http://dl.dropbox.com/u/3967849/sj57/get_ipv4.py
+ http://dl.dropbox.com/u/3967849/sj57/spider.py
+ http://dl.dropbox.com/u/3967849/sj57/show_books.py
+http://dl.dropbox.com/u/3967849/sj57/getmountain.py
+http://dl.dropbox.com/u/3967849/sj57/client.py
+http://dl.dropbox.com/u/3967849/sj57/server.py
+http://dl.dropbox.com/u/3967849/sj57/server1.py
+http://dl.dropbox.com/u/3967849/sj57/server2.py
+ http://dl.dropbox.com/u/3967849/sj57/implementations.txt
+ http://dl.dropbox.com/u/3967849/sj57/netstat_demo.py
+ http://dl.dropbox.com/u/3967849/sj57/switch.py
+ http://dl.dropbox.com/u/3967849/sj57/flask_demo.py
+ http://dl.dropbox.com/u/3967849/sj57/im.py
+ http://dl.dropbox.com/u/3967849/sj57/threading_demo.py
+
+
+Code Reading Examples
+=====================
+http://dl.dropbox.com/u/3967849/shared/picirc.py
+http://dl.dropbox.com/u/3967849/shared/banner.py
+http://dl.dropbox.com/u/3967849/shared/spelling.py
+http://dl.dropbox.com/u/3967849/shared/big.txt
+http://dl.dropbox.com/u/3967849/shared/highlight.py
+http://dl.dropbox.com/u/3967849/shared/publish.py
+
+Slides
+======
+
+http://dl.dropbox.com/u/3967849/shared/PythonAwesome.pdf
+http://dl.dropbox.com/u/3967849/shared/IntroPython.pdf
+http://dl.dropbox.com/u/3967849/shared/islands.pdf
+
+
+Daily Logs
+==========
+http://dl.dropbox.com/u/3967849/sj57/dayone.log
+http://dl.dropbox.com/u/3967849/sj57/daytwo.log
+http://dl.dropbox.com/u/3967849/sj57/daythree.log
+http://dl.dropbox.com/u/3967849/sj57/dayfour.log
+
+
+Tools
+=====
+http://dl.dropbox.com/u/3967849/shared/BeautifulSoup.py
+http://dl.dropbox.com/u/3967849/shared/pexpect.py              # PExpect Source code
+
+
+PExpect
+=======
+    Advice on learning Pexpect
+    1) import pexpect
+    2) help(pexpect)         <-- The docstrings are great, with good examples!
+    3) go to the webpage and look at the example descriptions:
+         http://www.noah.org/wiki/pexpect                      # Webpage
+    4) look at the source for each example
+         https://dl.dropbox.com/u/3967849/pexpect/index.html   # Examples
+
+
+Turtle Examples
+===============
+
+    http://dl.dropbox.com/u/3967849/shared/turtle_for_kids.py
+
+    https://dl.dropboxusercontent.com/u/3967849/turtle/pub/index.html
+
+    Great book on teaching with turtles Mindstorms by Papert
+    http://www.amazon.com/Mindstorms-Children-Computers-Powerful-Ideas/dp/0465046746
+
+
+Editors
+=======
+vi users          -- use vi plus ipython  or python-mode
+emacs users       -- use python-mode
+eclipse           -- use pydev plug-in
+python specific   -- pycharm or wing-ide (has a nice debugger) or komodo
+curses tool       -- bpython (curses interface)
+
+
+Sample Data
+===========
+
+http://dl.dropbox.com/u/3967849/shared/ipv4_int_bri.txt
+http://dl.dropbox.com/u/3967849/shared/show_controllers.txt
+http://dl.dropbox.com/u/3967849/shared/raisin_team.csv
+http://dl.dropbox.com/u/3967849/shared/books.json
+http://dl.dropbox.com/u/3967849/shared/books.xml
+http://dl.dropbox.com/u/3967849/shared/stocks.txt
+http://dl.dropbox.com/u/3967849/shared/email.txt
+
+
+General Notes
+=============
+
+How to make tuples and lists and dicts and sets:
+
+        Length 0:
+            []
+            ()
+            {}
+            set()
+
+        Length 1:
+            [10]  [10,]
+            10,   (10,)
+            {'raymond': 'red'}
+            {10}
+
+How to generate documentation automatically:
+
+    * python -m pydoc -w kap portfolio
+
+          http://dl.dropbox.com/u/3967849/sj57/kap.html
+          http://dl.dropbox.com/u/3967849/sj57/portfolio.html
+
+
+LIST COMP:
+    [i**2 for i in range(10)]
+
+SET COMP:
+    {i**2 for i in range(-5, 10)}
+
+DICT COMP:
+    {i**2 : i for i in range(10)}
+
+GEN EXP:
+    sum(i**2 for i in range(10))
+    
+
+Regular expression groups:
+
+    mo = re.search(r'(\d+)/(\d+)/(\d+)', data)
+    mo.group()    entire match
+    mo.group(0)   entire match
+    mo.group(1)   month
+    mo.group(2)   day
+    mo.group(3)   year
+
+    month, day, year = re.search(r'(\d+)/(\d+)/(\d+)', s).groups()
+
+Regex notation:
+
+    raymond             Does an exact match
+    profit|loss         Match either profit or loss
+    photo_...jpg        Dots match any character     photo_32.jpg
+    photo[a-g].jpg      Brackets match a character group    photoa.jpg photob.jpg
+    [aeiou]             Matches any single vowel
+    [^aeiou]            Matches any single non-vowel
+
+    \d                  [0-9] any digit
+    \D                  [^0-9] any non-digit
+    \w                  [A-Za-z0-9_] alphanumeric text with an underscore
+    \W                  non-alphanumeric without an underscore
+    \s                  space characters
+    \S                  non-space characters
+    \b                  word boundaries
+
+    a?                  Match zero or one       a{0,1}
+    a+                  Match one or more       a{1,}
+    a*                  Match zero or more      a{0,}
+    a{m,n}              Match m to n
+
+    match               Must match right at the beginning   --> match object
+    search              May match anywhere                  --> match object
+    findall             Finds them all                      --> list of matches
+
+    Recommendations:
+    1. Always start with findall()
+    2. Start with a small regex that matches, then grow it.
+    3. Always use raws strings for regexes
+
+To setup a logger:
+
+    logging.basicConfig(filename='example.log',level=logging.DEBUG)
+
+To make log entries:
+    logging.debug(msg)
+    logging.info(msg)
+    logging.error(msg)
+    logging.critical(msg)
+    logging.warn(msg)
+
+To run the debugger from the command-line (not the interactive prompt):
+
+    $ python -m pdb tweet_bug.py
+
+The most common debugger commands:
+
+    c   - continue until an exception or normal finish
+    n   - next (run to the next line)
+    l   - list the source and show where you are
+    b   - set a breakpoint
+    p   - print a variable
+    pp  - pretty print a variable
+    q   - quit
+
+Popular commands in the OS module:
+
+    os.getcwd()        # show the current working directory
+    os.listdir('.')    # list the files in a given directory
+    os.chdir(somedir)  # change to another directory
+
+An HTTP request:
+----------------
+GET /index.html HTTP/1.1
+Host: www.python.org
+Connection: close
+
+
+How to use the with-statement for file closing and lock releasing
+
+    # The old way that STILL works
+    f = open('notes/stocks.txt')
+    try:
+        data = f.read()
+    finally:
+        f.close()
+
+    # The new way
+    with open('notes/stocks.txt') as f:
+        data = f.read()
+
+
+    # The old way that STILL works
+    lock = threading.Lock()
+    lock.acquire()
+    try:
+        crit1()
+        crit2()
+    finally:
+        lock.release()
+
+    # The new way
+    with lock:
+        crit1()
+        crit2()
+
+
+
+Tools
+=====
+
+Pip:
+    $ curl -O http://python-distribute.org/distribute_setup.py
+    $ python distribute_setup.py
+    $ curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+    $ python get-pip.py
+    $ pip install virtualenv
+
+
+
+VirtualEnv:
+    http://pypi.python.org/pypi/virtualenv
+
+    $ virtualenv myproj
+    $ source myproj/bin/activate
+    $ pip install requests
+    $ pip install flask
+    
+    
+    (myproj) $ pip install django
+    (myproj) $ python
+    >>> import django
+    >>> ^D
+    (myproj) $ deactivate
+    $ # back to normal
+
+PyFlakes -- Avoid embarrassment using a Python lint
+
+    $ pip install pyflakes
+    $ pyflakes getflow.py
+
+
+REST APIs:
+==========
+QR codes:
+    https://developers.google.com/chart/infographics/docs/qr_codes
+    http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=Hello%20World --> hello.png
+Twitter:
+    https://dev.twitter.com/docs/api/1/get/search
+    http://search.twitter.com/search.json?q=@raymondh&rpp=10
+
+
+Suggestions for Little Python Projects
+======================================
+1) Use MS Excel to create a list of your teammate's names, titles, phone numbers, and email addresses.
+   Save the file as CSV.  Use Python's CSV reader to loop over the data.  Use a print template to
+   create VCard files (see wikipedia for the VCard format).  Use the code from tweet.py as a model
+   for creating QR codes from the Vcards (see the REST API links above).
+   
+2) Read the wikipedia article on Benford's law.  Write a screen scraper that retrieves arbitrary urls
+   and uses regular expressions to extract the numbers.  Display a histogram of the leading digits.
+   Compute a chi-square statistic on the expected versus actual distribution.  Conclude whether the
+   distribution is "natural".
+   
+3) Make a list of servers you have access to.  Use Python to generated ping's between them.
+   Summarize the ping times in a graph structure (use a dict  d[fromserver, toserver]=pingtime).
+   Generate graphviz output, possibly showing each node in a position corresponding to its
+   physical location).
+
+4) Project Euclid
